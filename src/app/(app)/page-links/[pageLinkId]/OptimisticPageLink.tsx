@@ -21,7 +21,7 @@ export default function OptimisticPageLink({
   pages: Page[];
   pageId?: PageId
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const openModal = (_?: PageLink) => {
     setOpen(true);
   };
@@ -31,8 +31,8 @@ export default function OptimisticPageLink({
     setOptimisticPageLink({ ...input.data });
 
   return (
-    <div className="m-4">
-      <Modal open={open} setOpen={setOpen} title="Edit Page link">
+    <div className="m-4 p-5 flex justify-center">
+      {/* <Modal open={open} setOpen={setOpen} title="Edit Page link">
         <PageLinkForm
           pageLink={optimisticPageLink}
           pages={pages}
@@ -65,7 +65,15 @@ export default function OptimisticPageLink({
         <div className="mb-2">
           <strong>URL:</strong> {optimisticPageLink.url}
         </div>
-      </pre>
+      </pre> */}
+      <PageLinkForm
+        pageLink={optimisticPageLink}
+        pages={pages}
+        pageId={pageId}
+        closeModal={closeModal}
+        openModal={openModal}
+        addOptimistic={updatePageLink}
+      />
     </div>
   );
 }
