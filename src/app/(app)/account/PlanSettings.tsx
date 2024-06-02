@@ -33,7 +33,7 @@ export default function PlanSettings({
         header: "Your Plan",
         description: subscriptionPlan.isSubscribed
           ? `You are currently on the ${subscriptionPlan.name} plan.`
-          : `You are not subscribed to any plan.`.concat(
+          : `You are currently on the basic plan.`.concat(
               !session?.user?.email || session?.user?.email.length < 5
                 ? " Please add your email to upgrade your account."
                 : ""

@@ -16,19 +16,17 @@ export async function getUserSubscriptionPlan() {
     },
   });
 
-  if (!subscription)
+  if (!subscription){
+    const {features , ...rest} = storeSubscriptionPlans[0];
     return {
-      id: undefined,
-      name: undefined,
-      description: undefined,
-      stripePriceId: undefined,
-      price: undefined,
+      ...rest,
       stripeSubscriptionId: null,
       stripeCurrentPeriodEnd: null,
       stripeCustomerId: null,
       isSubscribed: false,
       isCanceled: false,
     };
+  }
 
   const isSubscribed =
     subscription.stripePriceId &&

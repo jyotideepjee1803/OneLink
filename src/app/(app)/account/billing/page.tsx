@@ -15,6 +15,7 @@ import { getUserSubscriptionPlan } from "@/lib/stripe/subscription";
 import { CheckCircle2Icon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { BackButton } from "@/components/shared/BackButton";
 
 export default async function Billing() {
   await checkAuth();
@@ -27,9 +28,7 @@ export default async function Billing() {
     <div className="min-h-[calc(100vh-57px)] ">
       <SuccessToast />
       <Link href="/account">
-        <Button variant={"link"} className="px-0">
-          Back
-        </Button>
+        <BackButton currentResource="account"/>
       </Link>
       <h1 className="text-3xl font-semibold mb-4">Billing</h1>
       <Card className="p-6 mb-2">
@@ -41,7 +40,7 @@ export default async function Billing() {
         </p>
         <p className="text-sm text-muted-foreground">
           {!subscriptionPlan.isSubscribed
-            ? "You are not subscribed to any plan."
+            ? "You are on basic plan."
             : subscriptionPlan.isCanceled
             ? "Your plan will be canceled on "
             : "Your plan renews on "}
@@ -60,7 +59,7 @@ export default async function Billing() {
           >
             {plan.name === subscriptionPlan.name ? (
               <div className="w-full relative">
-                <div className="text-center px-3 py-1 bg-secondary-foreground text-secondary text-xs  w-fit rounded-l-lg rounded-t-none absolute right-0 font-semibold">
+                <div className="text-center px-3 py-1 bg-secondary-foreground text-secondary text-xs  w-fit rounded-l-lg rounded-tl-none rounded-tr-lg absolute right-0 font-semibold">
                   Current Plan
                 </div>
               </div>
@@ -85,24 +84,28 @@ export default async function Billing() {
               </ul>
             </CardContent>
             <CardFooter className="flex items-end justify-center">
-              {session?.user.email ? (
-                <ManageUserSubscriptionButton
-                  userId={session.user.id}
-                  email={session.user.email || ""}
-                  stripePriceId={plan.stripePriceId}
-                  stripeCustomerId={subscriptionPlan?.stripeCustomerId}
-                  isSubscribed={!!subscriptionPlan.isSubscribed}
-                  isCurrentPlan={subscriptionPlan?.name === plan.name}
-                />
-              ) : (
-                <div>
-                  <Link href="/account">
-                    <Button className="text-center" variant="ghost">
-                      Add Email to Subscribe
-                    </Button>
-                  </Link>
-                </div>
-              )}
+            {session?.user.email ? (
+              <div>
+                {plan.id !== "Basic" && (
+                  <ManageUserSubscriptionButton
+                    userId={session.user.id}
+                    email={session.user.email || ""}
+                    stripePriceId={plan.stripePriceId}
+                    stripeCustomerId={subscriptionPlan?.stripeCustomerId}
+                    isSubscribed={!!subscriptionPlan.isSubscribed}
+                    isCurrentPlan={subscriptionPlan?.name === plan.name}
+                  />
+                )}
+              </div>
+            ) : (
+              <div>
+                <Link href="/account">
+                  <Button className="text-center" variant="ghost">
+                    Add Email to Subscribe
+                  </Button>
+                </Link>
+              </div>
+            )}
             </CardFooter>
           </Card>
         ))}

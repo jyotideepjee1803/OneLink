@@ -23,7 +23,9 @@ import {
   updatePageAction,
 } from "@/lib/actions/pages";
 import Image from "next/image";
-import { CircleCheckIcon, CloudUploadIcon, ImageMinusIcon, ImagePlusIcon, TrashIcon } from "lucide-react";
+import { CircleCheckIcon, CloudUploadIcon, ImageMinusIcon, ImagePlusIcon, LockIcon, TrashIcon } from "lucide-react";
+import { getUserSubscriptionPlan } from "@/lib/stripe/subscription";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
 const PageForm = ({
   page,
@@ -31,9 +33,10 @@ const PageForm = ({
   closeModal,
   addOptimistic,
   postSuccess,
+  subscribed,
 }: {
   page?: Page | null;
-
+  subscribed? : boolean;
   openModal?: (page?: Page) => void;
   closeModal?: () => void;
   addOptimistic?: TAddOptimistic;
@@ -51,17 +54,19 @@ const PageForm = ({
   const [uploading, setUploading] = useState<boolean>(false);
   const [color, setColor] = useState<string>(page?.bgColor ?? "#000")
 
+  // const {isSubscribed} = await getUserSubscriptionPlan()
+
   const router = useRouter();
   const backpath = useBackPath("pages");
 
   const themes = [
-    "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 16%, rgba(0,212,255,1) 100%)",
-    "linear-gradient(45deg, #FFC371 0%, #FF5F6D 50%, #FFC371 100%)",
-    "linear-gradient(90deg, #16BFFD 0%, #CB3066 100%)",
-    "linear-gradient(0deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)",
-    "linear-gradient(19deg, #21D4FD 0%, #B721FF 100%)",
-    "linear-gradient(90deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)",
-    "linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%)",
+    {gradient: "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 16%, rgba(0,212,255,1) 100%)", available : true},
+    {gradient:"linear-gradient(45deg, #FFC371 0%, #FF5F6D 50%, #FFC371 100%)",available : true},
+    {gradient:"linear-gradient(90deg, #16BFFD 0%, #CB3066 100%)",available : true},
+    {gradient:"linear-gradient(0deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)",available : subscribed},
+    {gradient:"linear-gradient(19deg, #21D4FD 0%, #B721FF 100%)",available : subscribed},
+    {gradient:"linear-gradient(90deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)",available : subscribed},
+    {gradient:"linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%)",available : subscribed},
   ];
 
   const onSuccess = (
@@ -186,7 +191,7 @@ const PageForm = ({
           </div>
           <label>
             {dataUrl ? 
-              (<div className="w-full flex h-10 w-full items-center justify-center bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-full p-2" onClick={() => setDataUrl(null)}> 
+              (<div className="w-full flex h-10 w-full items-center justify-center bg-secondary text-secondary-foreground hover:bg-zinc-200 dark:hover:bg-secondary/80 rounded-full p-2" onClick={() => setDataUrl(null)}> 
               {"Remove Icon"} 
               </div>):
               (
@@ -247,21 +252,28 @@ const PageForm = ({
 
       <div className="flex flex-row items-center">
         <Label className={cn("mb-1 mr-4", errors?.bgColor && "text-destructive")}>Background</Label>
-        {/* <Input
-          type="color"
-          name="bgcolor"
-          className="w-24"
-          value={color}
-          onChange={(event) => {setColor(event.target.value)}}
-          defaultValue={page?.bgColor}
-        /> */}
           <div className="flex flex-row items-center overflow-x-auto w-72">
           {themes.map((theme, index) => (
-            <div key={index} onClick={() => setColor(theme)} className="mr-4">
-              <div className={`h-16 w-16 shadow-md text-white flex justify-center items-center rounded-full cursor-pointer ${color === theme ? 'opacity-50' : ''}`} style={{ background: theme }}>
-              {color === theme && <CircleCheckIcon/>}
+            <div key={index}>
+            {theme.available ? (
+              <div onClick={() => setColor(theme.gradient)} className="mr-4">
+                <div className={`h-16 w-16 shadow-md text-white flex justify-center items-center rounded-full cursor-pointer ${color === theme.gradient ? 'opacity-50' : ''}`} style={{ background: theme.gradient }}>
+                  {color === theme.gradient && <CircleCheckIcon/>}
+                </div>
               </div>
-            </div>
+            ) : (
+              <TooltipBlock
+                trigger={
+                  <div className="mr-4">
+                    <div className={`h-16 w-16 shadow-md text-white flex justify-center items-center rounded-full ${!theme.available ? 'opacity-50' : ''}`} style={{ background: theme.gradient }}>
+                      <LockIcon/>
+                    </div>
+                  </div>
+                }
+                content={<p>Subscribe to unlock</p>}
+              />
+            )}
+          </div>
           ))}
           </div>
         
@@ -346,3 +358,18 @@ const SaveButton = ({
     </Button>
   );
 };
+
+const TooltipBlock = ({trigger,content, } : {trigger: React.ReactNode; content : React.ReactNode;}) =>{
+  return (
+  <TooltipProvider>
+    <Tooltip>
+     <TooltipTrigger asChild>
+      {trigger}
+     </TooltipTrigger>
+     <TooltipContent>
+      {content}
+     </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
+  )
+}

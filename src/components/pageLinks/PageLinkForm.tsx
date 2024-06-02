@@ -29,9 +29,8 @@ import {
   updatePageLinkAction,
 } from "@/lib/actions/pageLinks";
 import { type Page, type PageId } from "@/lib/db/schema/pages";
-import ImagePicker from "../ui/imagePicker";
 import Image from "next/image";
-import { CloudUploadIcon, ImagePlusIcon, Plus, TrashIcon } from "lucide-react";
+import { CloudUploadIcon,} from "lucide-react";
 
 const PageLinkForm = ({
   pages,
@@ -175,7 +174,7 @@ const PageLinkForm = ({
          
           <div className="mb-2 w-full">
             <label htmlFor="avatarIn">
-              <div className="flex h-10 w-full items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-full p-2"> 
+              <div className="flex h-10 w-full items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-full p-2 cursor-pointer"> 
                 <span>{"Upload Icon"}</span> 
                 <CloudUploadIcon className="h-6 ml-2"/>
               </div>
@@ -185,7 +184,7 @@ const PageLinkForm = ({
           </div>
           <label>
             {dataUrl ? 
-              (<div className="w-full flex h-10 w-full items-center justify-center bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-full p-2" onClick={() => setDataUrl(null)}> 
+              (<div className="w-full flex h-10 w-full items-center justify-center bg-secondary text-secondary-foreground hover:bg-zinc-200 dark:hover:bg-secondary/80 rounded-full p-2 cursor-pointer" onClick={() => setDataUrl(null)}> 
               {"Remove Icon"} 
               </div>):
               (

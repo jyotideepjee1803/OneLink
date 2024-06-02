@@ -14,11 +14,10 @@ import { GlobeLockIcon, Share2Icon } from "lucide-react";
 
 export default function OptimisticPage({ 
   page,
-   
+  subscribed,
 }: { 
   page: Page; 
-  
-  
+  subscribed : boolean;
 }) {
   const [open, setOpen] = useState(false);
   const openModal = (_?: Page) => {
@@ -35,7 +34,7 @@ export default function OptimisticPage({
       <Modal open={open} setOpen={setOpen} title={"Edit Page"}>
         <PageForm
           page={optimisticPage}
-          
+          subscribed = {subscribed}
           closeModal={closeModal}
           openModal={openModal}
           addOptimistic={updatePage}
@@ -48,13 +47,9 @@ export default function OptimisticPage({
         </Button>
       </div>
 
-      {/* <div className={`py-4 mt-4 min-h-[200px] flex justify-center items-center bg-cover bg-center relative`}>
-          <div className="absolute top-4 right-4 bg-white text-black px-2 py-1 rounded">
-              {page.public ? <Share2Icon/> : <GlobeLockIcon/>}
-          </div>
-      </div> */}
-      <div className="flex justify-center mb-4">
-          <div className="relative -top-8 w-[128px] h-[128px]">
+      <div className={`py-4 mt-4 min-h-[200px] flex justify-center items-center bg-cover rounded-t-lg bg-center relative`} style={{background:page.bgColor}}/>
+      <div className="flex justify-center mb-2">
+          <div className="relative -top-12 w-[128px] h-[128px]">
             <div className="overflow-hidden h-full rounded-full border-4 border-white shadow shadow-black/50">
               <Image
                 className="w-full h-full object-cover"

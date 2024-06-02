@@ -37,7 +37,7 @@ const Page = async ({ id }: { id: string }) => {
     <Suspense fallback={<Loading />}>
       <div className="relative">
         <BackButton currentResource="pages" />
-        <OptimisticPage page={page} />
+        <OptimisticPage page={page} subscribed = {Boolean(isSubscribed)}/>
       </div>
       <TogglePublic page={page} isSubscribed={Boolean(isSubscribed)} />
       <div className="relative mt-8 mx-4 mb-4">

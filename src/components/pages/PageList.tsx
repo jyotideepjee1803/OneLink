@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import PageForm from "./PageForm";
 import { PlusIcon } from "lucide-react";
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
+import { PlaceholdersAndVanishInput } from "../ui/page-search";
 
 type TOpenModal = (page?: Page) => void;
 
@@ -29,11 +30,26 @@ export default function PageList({
   );
   const [open, setOpen] = useState(false);
   const [activePage, setActivePage] = useState<Page | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const placeholders = [
+    "Search your page",
+    "Click on the page",
+  ];
+ 
   const openModal = (page?: Page) => {
     setOpen(true);
     page ? setActivePage(page) : setActivePage(null);
   };
   const closeModal = () => setOpen(false);
+
+  const filteredPages = optimisticPages.filter((page) =>
+    page.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleSubmit = () =>{
+    setSearchQuery("");
+  }
 
   return (
     <div>
@@ -55,19 +71,35 @@ export default function PageList({
           +
         </Button>
       </div>
+      <div className="h-[20rem] flex flex-col justify-center  items-center px-4">
+        <h2 className="mb-5 sm:mb-10 text-xl text-center sm:text-5xl dark:text-white text-black">
+          Search your pages here
+        </h2>
+        <PlaceholdersAndVanishInput 
+            placeholders={placeholders}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onSubmit={handleSubmit}
+        />
+      </div>
       {optimisticPages.length === 0 ? (
-        <EmptyState openModal={openModal} />
+      <EmptyState openModal={openModal} />
       ) : (
-        <ul className="flex-col justify-center mt-3">
-          {optimisticPages.map((page) => (
-            <Page
-              page={page}
-              key={page.id}
-              openModal={openModal}
-            />
-          ))}
-        </ul>
-      )}
+      <>
+        {filteredPages.length === 0 ? (
+          <p className="text-center">No pages found</p>
+        ) : (
+          <ul>
+            {filteredPages.map((page) => (
+              <Page
+                page={page}
+                key={page.id}
+                openModal={openModal}
+              />
+            ))}
+          </ul>
+        )}
+      </>
+    )}
     </div>
   );
 }
@@ -94,7 +126,7 @@ const Page = ({
           <div>{page.name}</div>
         </div> */}
         <CardContainer className="inter-var">
-          <CardBody className="relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-3 border  ">
+          <CardBody className="relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:border-white/[0.2] border-black/[0.1] sm:w-[30rem] h-auto rounded-xl p-3 border  ">
             <CardItem
               translateZ="50" 
               className="text-xl text-black dark:text-white w-full flex justify-center items-center min-w-80"
