@@ -7,6 +7,7 @@ import { getPageBySlugWithPageLinks } from "@/lib/api/pages/queries";
 import { getUserImage } from "@/lib/api/pages/mutations";
 import Image from "next/image";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
+import { type PageLink} from "@/lib/db/schema/pageLinks";
 
 export default async function SharedPage({
   params,
@@ -58,7 +59,7 @@ export default async function SharedPage({
           <p className="text-white">{page.description}</p>
         </header>
         <nav className="flex w-full max-w-md flex-1 flex-col gap-4">
-          {pageLinks.map((l) => {
+          {pageLinks.map((l:PageLink) => {
             return (
               <Link key={l.id} href={l.url}>
                 <div className={`gap-4 border border-gray-300 rounded-full p-3 flex items-center text-white hover:text-blue-900 hover:bg-gray-50`}>
