@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import getStripe from "@/utils/getStripe";
 
 interface ManageUserSubscriptionButtonProps {
   userId: string;
@@ -41,10 +42,18 @@ export function ManageUserSubscriptionButton({
             stripePriceId,
           }),
         });
-        const session: { url: string } = await res.json();
-        if (session) {
-          window.location.href = session.url ?? "/dashboard/billing";
-        }
+
+        const checkoutSession = await res.json().then((value) => {
+          return value.session;
+        });
+    
+        const stripe = await getStripe();
+        const { error } = await stripe!.redirectToCheckout({
+          sessionId: checkoutSession.id,
+        });
+    
+        console.warn(error.message);
+        
       } catch (err) {
         console.error((err as Error).message);
         toast.error("Something went wrong, please try again later.");

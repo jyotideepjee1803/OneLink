@@ -1,5 +1,6 @@
 import { stripe } from "@/lib/stripe/index";
 import { absoluteUrl } from "@/lib/utils";
+import { NextResponse } from "next/server";
 
 interface ManageStripeSubscriptionActionProps {
   isSubscribed: boolean;
@@ -13,7 +14,7 @@ interface ManageStripeSubscriptionActionProps {
 export async function POST(req: Request) {
   const body: ManageStripeSubscriptionActionProps = await req.json();
   const { isSubscribed, stripeCustomerId, userId, stripePriceId, email } = body;
-  // console.log(body);
+  console.log(body);
   const billingUrl = absoluteUrl("/account/billing");
 
   if (isSubscribed && stripeCustomerId) {
@@ -44,8 +45,17 @@ export async function POST(req: Request) {
       userId,
     },
   });
+  if (!stripeSession.url) {
+    return NextResponse.json(
+      {
+        error: {
+          code: "stripe-error",
+          message: "Could not create checkout session",
+        },
+      },
+      { status: 500 }
+    );
+  }
 
-  return new Response(JSON.stringify({ url: stripeSession.url }), {
-    status: 200,
-  });
+  return NextResponse.json({ session: stripeSession }, { status: 200 });
 }

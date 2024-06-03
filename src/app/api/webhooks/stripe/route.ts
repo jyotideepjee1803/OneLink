@@ -15,6 +15,7 @@ export async function POST(request: Request) {
       signature,
       process.env.STRIPE_WEBHOOK_SECRET || ""
     );
+    console.log(event)
     console.log(event.type);
   } catch (err) {
     return new Response(

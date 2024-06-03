@@ -14,7 +14,7 @@ import { checkAuth, getUserAuth } from "@/lib/auth/utils";
 import { getUserSubscriptionPlan } from "@/lib/stripe/subscription";
 import { CheckCircle2Icon } from "lucide-react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect} from "next/navigation";
 import { BackButton } from "@/components/shared/BackButton";
 
 export default async function Billing() {
@@ -23,13 +23,11 @@ export default async function Billing() {
   const subscriptionPlan = await getUserSubscriptionPlan();
 
   if (!session) return redirect("/");
-
+  
   return (
     <div className="min-h-[calc(100vh-57px)] ">
       <SuccessToast />
-      <Link href="/account">
-        <BackButton currentResource="account"/>
-      </Link>
+      <BackButton currentResource="account"/>
       <h1 className="text-3xl font-semibold mb-4">Billing</h1>
       <Card className="p-6 mb-2">
         <h3 className="uppercase text-xs font-bold text-muted-foreground">
