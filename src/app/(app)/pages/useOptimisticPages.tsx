@@ -6,15 +6,15 @@ import { useOptimistic } from "react";
 export type TAddOptimistic = (action: OptimisticAction<Page>) => void;
 
 export const useOptimisticPages = (
-  pages: CompletePage[],
+  pages: Page[],
   
 ) => {
   const [optimisticPages, addOptimisticPage] = useOptimistic(
     pages,
     (
-      currentState: CompletePage[],
+      currentState: Page[],
       action: OptimisticAction<Page>,
-    ): CompletePage[] => {
+    ): Page[] => {
       const { data } = action;
 
       
