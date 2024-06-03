@@ -21,7 +21,7 @@ export default function PageList({
   pages,
    
 }: {
-  pages: CompletePage[];
+  pages: Page[];
    
 }) {
   const { optimisticPages, addOptimisticPage } = useOptimisticPages(
@@ -108,7 +108,7 @@ const Page = ({
   page,
   openModal,
 }: {
-  page: CompletePage;
+  page: Page;
   openModal: TOpenModal;
 }) => {
   const optimistic = page.id === "optimistic";

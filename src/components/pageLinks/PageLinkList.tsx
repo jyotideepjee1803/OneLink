@@ -21,7 +21,7 @@ export default function PageLinkList({
   pages,
   pageId 
 }: {
-  pageLinks: CompletePageLink[];
+  pageLinks: PageLink[];
   pages: Page[];
   pageId?: PageId 
 }) {
@@ -79,7 +79,7 @@ const PageLink = ({
   pageLink,
   openModal,
 }: {
-  pageLink: CompletePageLink;
+  pageLink: PageLink;
   openModal: TOpenModal;
 }) => {
   const optimistic = pageLink.id === "optimistic";
