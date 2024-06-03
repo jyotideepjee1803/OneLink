@@ -30,6 +30,8 @@ const PageLink = async ({ id }: { id: string }) => {
   const { pages } = await getPages();
 
   if (!pageLink) notFound();
+  if(pageLink.icon === undefined) pageLink.icon = null;
+  
   return (
     <Suspense fallback={<Loading />}>
       <div className="relative">
