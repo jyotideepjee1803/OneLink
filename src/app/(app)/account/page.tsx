@@ -14,7 +14,7 @@ export default async function Account() {
         <h1 className="text-2xl font-semibold my-4">Account</h1>
       </div>
       <div className="space-y-4">
-        <PlanSettings subscriptionPlan={subscriptionPlan} session={session} />
+        <PlanSettings subscriptionPlan={subscriptionPlan}/>
         <UserSettings/>
       </div>
     </main>

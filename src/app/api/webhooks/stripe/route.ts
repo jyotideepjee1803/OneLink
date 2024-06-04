@@ -45,7 +45,8 @@ export async function POST(request: Request) {
       stripePriceId: subscription.items.data[0].price.id,
       stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
     };
-
+    console.log(updatedData);
+    console.log(session);
     if (session?.metadata?.userId != null) {
       await db.subscription.upsert({
         where: { userId: session.metadata.userId },

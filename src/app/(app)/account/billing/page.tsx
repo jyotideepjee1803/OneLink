@@ -23,7 +23,7 @@ export default async function Billing() {
   const subscriptionPlan = await getUserSubscriptionPlan();
 
   if (!session) return redirect("/");
-  
+
   return (
     <div className="min-h-[calc(100vh-57px)] ">
       <SuccessToast />
@@ -48,7 +48,8 @@ export default async function Billing() {
         </p>
       </Card>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
-        {storeSubscriptionPlans.map((plan) => (
+        {storeSubscriptionPlans.map((plan) => {
+          return (
           <Card
             key={plan.id}
             className={
@@ -106,7 +107,10 @@ export default async function Billing() {
             )}
             </CardFooter>
           </Card>
-        ))}
+          )
+        }
+        )}
+        
       </div>
     </div>
   );

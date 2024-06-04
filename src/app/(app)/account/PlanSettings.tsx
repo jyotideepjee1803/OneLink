@@ -6,7 +6,8 @@ import {
 } from "./AccountCard";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { AuthSession } from "@/lib/auth/utils";
+// import { AuthSession } from "@/lib/auth/utils";
+import { useUser } from "@clerk/nextjs";
 
 interface PlanSettingsProps {
   stripeSubscriptionId: string | null;
@@ -22,11 +23,11 @@ interface PlanSettingsProps {
 }
 export default function PlanSettings({
   subscriptionPlan,
-  session,
 }: {
   subscriptionPlan: PlanSettingsProps;
-  session: AuthSession["session"];
 }) {
+  const {user} = useUser();
+  const email = user?.emailAddresses[0].emailAddress;
   return (
     <AccountCard
       params={{
@@ -34,7 +35,7 @@ export default function PlanSettings({
         description: subscriptionPlan.isSubscribed
           ? `You are currently on the ${subscriptionPlan.name} plan.`
           : `You are currently on the basic plan.`.concat(
-              !session?.user?.email || session?.user?.email.length < 5
+              !email || email.length < 5
                 ? " Please add your email to upgrade your account."
                 : ""
             ),
