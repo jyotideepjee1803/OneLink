@@ -15,7 +15,7 @@ export default async function Account() {
       </div>
       <div className="space-y-4">
         <PlanSettings subscriptionPlan={subscriptionPlan} session={session} />
-        <UserSettings session={session} />
+        <UserSettings/>
       </div>
     </main>
   );
