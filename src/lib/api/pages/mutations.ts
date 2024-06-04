@@ -10,7 +10,9 @@ import {
 import { getUserAuth } from "@/lib/auth/utils";
 
 export const createPage = async (page: NewPageParams) => {
+  console.log(page)
   const { session } = await getUserAuth();
+  console.log(session)
   const newPage = insertPageSchema.parse({ ...page, userId: session?.user.id! });
   try {
     const p = await db.page.create({ data: newPage });

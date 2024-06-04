@@ -4,6 +4,7 @@ import SidebarItems from "./SidebarItems";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 
 import { AuthSession, getUserAuth } from "@/lib/auth/utils";
+import { UserButton } from "@clerk/nextjs";
 
 const Sidebar = async () => {
   const session = await getUserAuth();
@@ -39,7 +40,7 @@ const UserDetails = ({ session }: { session: AuthSession }) => {
             {user.email ?? "john@doe.com"}
           </p>
         </div>
-        <Avatar className="h-10 w-10">
+        {/* <Avatar className="h-10 w-10">
           <AvatarFallback className="border-border border-2 text-muted-foreground">
             {user.name
               ? user.name
@@ -48,7 +49,8 @@ const UserDetails = ({ session }: { session: AuthSession }) => {
                   .join("")
               : "~"}
           </AvatarFallback>
-        </Avatar>
+        </Avatar> */}
+        <UserButton afterSignOutUrl="/"/>
       </div>
     </Link>
   );

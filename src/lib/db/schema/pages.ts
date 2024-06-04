@@ -7,7 +7,7 @@ import { getPages } from "@/lib/api/pages/queries";
 // Schema for pages - used to validate API requests
 const baseSchema = pageSchema.omit(timestamps)
 
-export const insertPageSchema = baseSchema.omit({ id: true });
+export const insertPageSchema = baseSchema.omit({ id: true});
 export const insertPageParams = baseSchema.extend({
   public: z.coerce.boolean()
 }).omit({ 
