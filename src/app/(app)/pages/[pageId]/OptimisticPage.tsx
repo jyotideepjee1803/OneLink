@@ -50,7 +50,7 @@ export default function OptimisticPage({
       <div className={`py-4 mt-4 min-h-[200px] flex justify-center items-center bg-cover rounded-t-lg bg-center relative`} style={{background:page.bgColor}}/>
       <div className="flex justify-center mb-2">
           <div className="relative -top-12 w-[128px] h-[128px]">
-            <div className="overflow-hidden h-full rounded-full border-4 border-white shadow shadow-black/50">
+            <div className="overflow-hidden h-full rounded-full border-4 border-zinc-200 dark:border-secondary/80 shadow shadow-black/50">
               <Image
                 className="w-full h-full object-cover"
                 src={page.icon ?? defaultSrc}

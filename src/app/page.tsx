@@ -37,8 +37,8 @@ export default function LandingPage() {
         <section className="w-full dark:bg-black bg-white  dark:bg-grid-white/[0.07] bg-grid-black/[0.2] relative p-5">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-              <div className="mx-auto aspect-video object-fit sm:w-full lg:order-last lg:aspect-square">
-                <CardContainer still={false}>
+              <div className="mx-auto aspect-video object-fit sm:w-full lg:order-last lg:aspect-square xs:hidden">
+                <CardContainer still={false} className="">
                   <CardBody>
                   <CardItem translateZ="100" className="w-full mt-4">
                       <Image

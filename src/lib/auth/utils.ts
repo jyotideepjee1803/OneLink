@@ -5,7 +5,7 @@
 // import { redirect } from "next/navigation";
 // import { env } from "@/lib/env.mjs"
 // import GoogleProvider from "next-auth/providers/google";
-import { auth } from "@clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 // declare module "next-auth" {
@@ -56,13 +56,15 @@ export type AuthSession = {
 export const getUserAuth = async () => {
   // find out more about setting up 'sessionClaims' (custom sessions) here: https://clerk.com/docs/backend-requests/making/custom-session-token
   const { userId, sessionClaims } = auth();
+
+  const user = await clerkClient.users.getUser(userId ?? "");
   if (userId) {
     return {
       session: {
         user: {
           id: userId,
-          name: `${sessionClaims?.firstName} ${sessionClaims?.lastName}`,
-          email: sessionClaims?.email,
+          name: user.fullName,
+          email: user.emailAddresses[0].emailAddress,
         },
       },
     } as AuthSession;

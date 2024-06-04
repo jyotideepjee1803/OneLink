@@ -167,7 +167,7 @@ const PageForm = ({
       {/* Schema fields start */}
       <div className="flex items-center">
         <div className="relative w-[80px] h-[80px] shrink-0 mr-2">
-          <div className="overflow-hidden h-full rounded-full border-4 border-white shadow shadow-black/50">
+          <div className="overflow-hidden h-full rounded-full border-2 border-zinc-200 dark:border-secondary/80 shadow shadow-black/50">
             {dataUrl && <Image
               className="w-full h-full object-cover"
               src={dataUrl}

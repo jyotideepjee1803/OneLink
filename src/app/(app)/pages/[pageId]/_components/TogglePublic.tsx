@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { updatePageAction } from "@/lib/actions/pages";
 import { Page } from "@/lib/db/schema/pages";
+import { absoluteUrl } from "@/lib/utils";
 
 export default function TogglePublic({
   isSubscribed,
@@ -22,19 +23,9 @@ export default function TogglePublic({
   isSubscribed: boolean;
   page: Page;
 }) {
-  const pageLink = "http://localhost:3000/share/" + page.slug;
+  const pageLink = absoluteUrl("/share/") + page.slug;
   return (
     <div className="relative">
-      {/* {isSubscribed ? null : (
-        <div className="absolute right-0 top-0 z-50 flex h-full w-full flex-col items-center justify-center bg-white opacity-90">
-          <p className="mb-2 select-none text-lg font-bold">
-            You need to subscribe to share this page
-          </p>
-          <Button asChild variant={"secondary"}>
-            <Link href="/account/billing">Subscribe</Link>
-          </Button>
-        </div>
-      )} */}
       <Card>
         <CardHeader>
           <CardTitle>Share this page</CardTitle>

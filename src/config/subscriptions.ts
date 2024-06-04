@@ -22,6 +22,6 @@ export const storeSubscriptionPlans: SubscriptionPlan[] = [
     description: "Pro tier offers greater customisation to your pages",
     stripePriceId: process.env.NEXT_PUBLIC_STRIPE_MAX_PRICE_ID ?? "",
     price: 500,
-    features: ["Unlock all themes", "Social Icons", "Modify page slug"],
+    features: ["Unlock all themes", "Social Icons"],
   },
 ];
