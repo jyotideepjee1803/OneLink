@@ -3,6 +3,7 @@ import { CompleteAccount, relatedAccountSchema, CompleteSession, relatedSessionS
 
 export const userSchema = z.object({
   id: z.string(),
+  clerkId: z.string(),
   name: z.string().nullish(),
   email: z.string().nullish(),
   emailVerified: z.date().nullish(),

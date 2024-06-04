@@ -1,17 +1,15 @@
 "use client";
 import UpdateNameCard from "./UpdateNameCard";
 import UpdateEmailCard from "./UpdateEmailCard";
-import { AuthSession } from "@/lib/auth/utils";
+import { useUser } from "@clerk/nextjs";
 
-export default function UserSettings({
-  session,
-}: {
-  session: AuthSession["session"];
-}) {
+
+export default function UserSettings() {
+  const {user } = useUser();
   return (
     <>
-      <UpdateNameCard name={session?.user.name ?? ""} />
-      <UpdateEmailCard email={session?.user.email ?? ""} />
+      <UpdateNameCard name={user?.fullName ?? ""} />
+      <UpdateEmailCard email={user?.emailAddresses[0].emailAddress?? ""} />
     </>
   );
 }

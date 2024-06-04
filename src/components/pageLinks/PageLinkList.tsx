@@ -50,7 +50,7 @@ export default function PageLinkList({
           openModal={openModal}
           closeModal={closeModal}
           pages={pages}
-        pageId={pageId}
+          pageId={pageId}
         />
       </Modal>
       <div className="absolute right-0 top-0 ">

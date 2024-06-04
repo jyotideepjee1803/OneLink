@@ -155,7 +155,7 @@ const PageLinkForm = ({
   };
 
   return (
-    <form action={handleSubmit} onChange={handleChange} className={"space-y-8 w-5/12 p-8 border rounded-lg"}>
+    <form action={handleSubmit} onChange={handleChange} className={"space-y-8"}>
       {/* Schema fields start */}
 
       <div className="flex items-center">
