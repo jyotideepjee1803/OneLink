@@ -6,12 +6,9 @@ import { useUser } from "@clerk/nextjs";
 
 export default function UserSettings() {
   const {user } = useUser();
-  const firstName = user?.firstName ?? "";
-  const lastName = user?.lastName ?? "";
-  const fullName = firstName + " " + lastName;
   return (
     <>
-      <UpdateNameCard name={fullName} />
+      <UpdateNameCard name={user?.fullName ?? ""} />
       <UpdateEmailCard email={user?.emailAddresses[0].emailAddress?? ""} />
     </>
   );
