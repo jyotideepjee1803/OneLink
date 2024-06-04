@@ -33,6 +33,7 @@
     "@stripe/stripe-js": "^3.3.0",
     "@t3-oss/env-nextjs": "^0.10.0",
     "@types/uuid": "^9.0.8",
+    "@vercel/postgres": "^0.8.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "framer-motion": "^11.2.9",
