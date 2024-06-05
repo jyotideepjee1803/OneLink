@@ -26,6 +26,7 @@ import Image from "next/image";
 import { CircleCheckIcon, CloudUploadIcon, ImageMinusIcon, ImagePlusIcon, LockIcon, TrashIcon } from "lucide-react";
 import { getUserSubscriptionPlan } from "@/lib/stripe/subscription";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import Loading from "@/app/loading";
 
 const PageForm = ({
   page,
@@ -182,11 +183,18 @@ const PageForm = ({
           <div className="mb-2 w-full">
             <label htmlFor="avatarIn">
               <div className="flex h-10 w-full items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 rounded-full p-2"> 
+                {uploading ? (
+                <>
+                  <Loading/>
+                </>
+                ) : (<>
                 <span>{"Upload Icon"}</span> 
                 <CloudUploadIcon className="h-6 ml-2"/>
+                </>
+              )}
               </div>
             </label>
-            <input onChange={handleFileChange} id="avatarIn" type="file" className="hidden"/>
+            <input onChange={handleFileChange} id="avatarIn" type="file" className="hidden" disabled={uploading}/>
             <input type="hidden" name="avatar" value={dataUrl?? "" }/>
           </div>
           <label>
