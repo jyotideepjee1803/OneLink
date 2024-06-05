@@ -49,16 +49,15 @@ export async function GET() {
     return new NextResponse(null, {
       status: 302, // 302 Found - temporary redirect
       headers: {
-        Location: absoluteUrl('/api/auth/new-user'),
+        Location: "https://one-link-nine.vercel.app/api/auth/new-user",
       },
     });
   }
-  // Perform your Route Handler's logic with the returned user object
 
   return new NextResponse(null, {
     status: 302, // 302 Found - temporary redirect
     headers: {
-      Location: absoluteUrl('/pages'),
+      Location: "https://one-link-nine.vercel.app/pages",
     },
   });
 
