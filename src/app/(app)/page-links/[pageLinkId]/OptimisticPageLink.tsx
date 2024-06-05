@@ -32,40 +32,7 @@ export default function OptimisticPageLink({
 
   return (
     <div className="m-4 p-5 flex justify-center">
-      {/* <Modal open={open} setOpen={setOpen} title="Edit Page link">
-        <PageLinkForm
-          pageLink={optimisticPageLink}
-          pages={pages}
-          pageId={pageId}
-          closeModal={closeModal}
-          openModal={openModal}
-          addOptimistic={updatePageLink}
-        />
-      </Modal>
-      <div className="flex justify-between items-end mb-4">
-        <h1 className="font-semibold text-2xl">{optimisticPageLink.title}</h1>
-        <Button className="" onClick={() => setOpen(true)}>
-          Edit
-        </Button>
-      </div>
-      <pre
-        className={cn(
-          "bg-secondary p-4 rounded-lg break-all text-wrap",
-          optimisticPageLink.id === "optimistic" ? "animate-pulse" : "",
-        )}
-      >
-        {optimisticPageLink.icon && 
-          <div className="mb-2">
-            <Image src={optimisticPageLink.icon} alt="icon" height={40} width={40}/>
-          </div>
-        }
-        <div className="mb-2">
-          <strong>Title:</strong> {optimisticPageLink.title}
-        </div>
-        <div className="mb-2">
-          <strong>URL:</strong> {optimisticPageLink.url}
-        </div>
-      </pre> */}
+      <div className="w-3/6 min-w-max">
       <PageLinkForm
         pageLink={optimisticPageLink}
         pages={pages}
@@ -74,6 +41,7 @@ export default function OptimisticPageLink({
         openModal={openModal}
         addOptimistic={updatePageLink}
       />
+      </div>
     </div>
   );
 }

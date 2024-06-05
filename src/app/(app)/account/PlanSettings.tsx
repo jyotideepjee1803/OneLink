@@ -6,7 +6,6 @@ import {
 } from "./AccountCard";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-// import { AuthSession } from "@/lib/auth/utils";
 import { useUser } from "@clerk/nextjs";
 
 interface PlanSettingsProps {

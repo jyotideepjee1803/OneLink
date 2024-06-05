@@ -16,9 +16,6 @@ export async function getUserSubscriptionPlan() {
     },
   });
 
-  const subs = await db.subscription.findMany();
-  console.log(subs);
-
   if (!subscription){
     const {features , ...rest} = storeSubscriptionPlans[0];
     return {
