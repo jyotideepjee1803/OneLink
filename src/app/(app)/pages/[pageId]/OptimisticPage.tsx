@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import Modal from "@/components/shared/Modal";
 import PageForm from "@/components/pages/PageForm";
 import Image from "next/image";
-import { GlobeLockIcon, Share2Icon } from "lucide-react";
 
 
 export default function OptimisticPage({ 

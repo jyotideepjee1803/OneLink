@@ -39,7 +39,7 @@ export async function GET() {
     dbUser = await db.user.create({
       data: {
         clerkId: user.id,
-        name: (user.firstName ?? '' + user.lastName ?? ""),
+        name: user.fullName ?? '',
         email: user.emailAddresses[0].emailAddress ?? '',
       },
     });

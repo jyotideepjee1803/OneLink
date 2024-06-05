@@ -92,10 +92,15 @@ const PageLink = ({
 
 
   return (
-    <Link className={`p-2 inline-block rounded-lg w-full`} href={ basePath + "/" + pageLink.id }>
-    {/* <div className="w-full">
-      <div>{page.name}</div>
-    </div> */}
+    <Link className={cn("p-2 inline-block rounded-lg w-full",
+    mutating ? "opacity-0 animate-pulse" : "",
+    deleting ? "text-destructive" : "",)} 
+    style={{
+      pointerEvents: mutating||deleting ? "none" : "auto",
+    }}
+    aria-disabled={mutating || deleting} 
+    href={ basePath + "/" + pageLink.id }
+    >
     <CardContainer className="inter-var">
       <CardBody className="relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-3 border flex justify-center items-center">
         <CardItem

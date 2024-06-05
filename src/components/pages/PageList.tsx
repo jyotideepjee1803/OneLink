@@ -121,7 +121,16 @@ const Page = ({
 
 
   return (
-      <Link className={`p-2 inline-block rounded-lg w-full`} href={ basePath + "/" + page.id }>
+      <Link 
+        className={cn("p-2 inline-block rounded-lg w-full",
+        mutating ? "opacity-0 animate-pulse" : "",
+        deleting ? "text-destructive" : "",)} 
+        href={ basePath + "/" + page.id }
+        style={{
+          pointerEvents: mutating||deleting ? "none" : "auto",
+        }}
+        aria-disabled={mutating || deleting}
+      >
         {/* <div className="w-full">
           <div>{page.name}</div>
         </div> */}
