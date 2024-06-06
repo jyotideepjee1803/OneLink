@@ -41,12 +41,12 @@ export function Integrations({
   return (
     <div
       className={cn(
-        "relative flex w-full max-w-[500px] max-h-[500px] min-h-[500px] items-center justify-center overflow-hidden bg-background p-10 md:shadow-xl",
+        "relative flex w-full max-h-[20rem] min-h-[400px] max-w-[23rem] items-center justify-center overflow-hidden",
         className,
       )}
       ref={containerRef}
     >
-      <div className="flex h-full w-full flex-row items-stretch justify-between gap-10">
+      <div className="flex flex-row items-stretch justify-between gap-10">
         <div className="flex flex-col justify-center">
           <Circle ref={div7Ref}>
             <Icons.user className="text-black" />

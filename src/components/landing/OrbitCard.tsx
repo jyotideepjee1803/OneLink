@@ -3,7 +3,7 @@ import { IconProps } from "@radix-ui/react-icons/dist/types";
 
 export function OrbitCard() {
   return (
-    <div className="relative flex max-h-[500px] min-h-[500px] w-full max-w-[32rem] items-center justify-center overflow-hidden bg-background md:shadow-xl">
+    <div className="relative flex max-h-[20rem] min-h-[400px] w-full max-w-[20rem] items-center justify-center overflow-hidden">
       <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
         One Link
       </span>
@@ -13,7 +13,7 @@ export function OrbitCard() {
         className="h-[30px] w-[30px] border-none bg-transparent"
         duration={20}
         delay={20}
-        radius={80}
+        radius={60}
       >
         <Icons.whatsapp />
       </OrbitingCircles>
@@ -21,7 +21,7 @@ export function OrbitCard() {
         className="h-[30px] w-[30px] border-none bg-transparent"
         duration={20}
         delay={50}
-        radius={80}
+        radius={60}
       >
         <Icons.notion />
       </OrbitingCircles>
@@ -30,7 +30,7 @@ export function OrbitCard() {
         className="h-[30px] w-[30px] border-none bg-transparent"
         duration={60}
         delay={30}
-        radius={80}
+        radius={60}
       >
         <Icons.linkedIn />
       </OrbitingCircles>
@@ -39,7 +39,7 @@ export function OrbitCard() {
         className="h-[30px] w-[30px] border-none bg-transparent"
         duration={30}
         delay={110}
-        radius={80}
+        radius={60}
       >
         <Icons.x />
       </OrbitingCircles>
@@ -48,7 +48,7 @@ export function OrbitCard() {
       <OrbitingCircles
         className="h-[50px] w-[50px] border-none bg-transparent"
         reverse
-        radius={190}
+        radius={140}
         duration={20}
         delay={20} // Keep this delay
       >
@@ -57,7 +57,7 @@ export function OrbitCard() {
       <OrbitingCircles
         className="h-[50px] w-[50px] border-none bg-transparent"
         reverse
-        radius={190}
+        radius={140}
         duration={20}
         delay={50} // Adjusted delay
       >
@@ -67,7 +67,7 @@ export function OrbitCard() {
       <OrbitingCircles
         className="h-[50px] w-[50px] border-none bg-transparent"
         reverse
-        radius={190}
+        radius={140}
         duration={60}
         delay={30} // Adjusted delay
       >
@@ -78,7 +78,7 @@ export function OrbitCard() {
       <OrbitingCircles
         className="h-[50px] w-[50px] border-none bg-transparent"
         reverse
-        radius={190}
+        radius={140}
         duration={30}
         delay={110} // Adjusted delay
       >

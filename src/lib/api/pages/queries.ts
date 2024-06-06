@@ -22,22 +22,22 @@ export const getPageByIdWithPageLinks = async (id: PageId) => {
   const { id: pageId } = pageIdSchema.parse({ id });
   const p = await db.page.findFirst({
     where: { id: pageId, userId: session?.user.id! },
-    include: { pageLinks: { include: { page: true } } },
+    include: { pageLinks: { include: { page: true } }, pageButtons : {include : {page: true}} },
   });
   if (p === null) return { page: null };
-  const { pageLinks, ...page } = p;
+  const { pageLinks, pageButtons, ...page } = p;
 
-  return { page, pageLinks: pageLinks };
+  return { page, pageLinks: pageLinks, pageButtons: pageButtons };
 };
 
-export const getPageBySlugWithPageLinks = async (slug: PageId) => {
+export const getPageBySlugWithPageLinksButtons = async (slug: PageId) => {
   const { id: pageId } = pageIdSchema.parse({ id: slug });
   const p = await db.page.findFirst({
     where: { slug: pageId },
-    include: { pageLinks: { include: { page: true } } },
+    include: { pageLinks: { include: { page: true } }, pageButtons : {include: {page:true}} },
   });
   if (p === null) return { page: null };
-  const { pageLinks, ...page } = p;
+  const { pageButtons, pageLinks, ...page} = p;
 
-  return { page, pageLinks: pageLinks };
+  return { page, pageLinks: pageLinks, pageButtons };
 };

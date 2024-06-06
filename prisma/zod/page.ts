@@ -1,5 +1,5 @@
 import * as z from "zod"
-import { CompleteUser, relatedUserSchema, CompletePageLink, relatedPageLinkSchema } from "./index"
+import { CompleteUser, relatedUserSchema, CompletePageLink, relatedPageLinkSchema, CompletePageButton, relatedPageButtonSchema } from "./index"
 
 export const pageSchema = z.object({
   id: z.string(),
@@ -17,6 +17,7 @@ export const pageSchema = z.object({
 export interface CompletePage extends z.infer<typeof pageSchema> {
   user: CompleteUser
   pageLinks: CompletePageLink[]
+  pageButtons: CompletePageButton[]
 }
 
 /**
@@ -27,4 +28,5 @@ export interface CompletePage extends z.infer<typeof pageSchema> {
 export const relatedPageSchema: z.ZodSchema<CompletePage> = z.lazy(() => pageSchema.extend({
   user: relatedUserSchema,
   pageLinks: relatedPageLinkSchema.array(),
+  pageButtons: relatedPageButtonSchema.array(),
 }))

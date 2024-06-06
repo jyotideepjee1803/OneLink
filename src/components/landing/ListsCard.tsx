@@ -56,7 +56,7 @@ const Notification = ({icon, color }: Item) => {
 
 export function ListCard() {
   return (
-    <div className="relative flex max-h-[500px] min-h-[500px] w-full max-w-[32rem] flex-col overflow-hidden bg-background p-6 shadow-lg">
+    <div className="relative flex max-h-[20rem] min-h-[400px] w-full max-w-[23rem] flex-col overflow-hidden p-6">
       <div className="min-h-[100px] flex justify-center items-center mb-2">
         <Skeleton className="h-20 w-20 rounded-full" />
       </div>
