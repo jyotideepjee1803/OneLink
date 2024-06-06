@@ -5,6 +5,7 @@ import { getPageByIdWithPageLinks } from "@/lib/api/pages/queries";
 import OptimisticPage from "./OptimisticPage";
 import { checkAuth } from "@/lib/auth/utils";
 import PageLinkList from "@/components/pageLinks/PageLinkList";
+import PageButtonList from "@/components/social_icons/PageButtonList";
 
 import { BackButton } from "@/components/shared/BackButton";
 import Loading from "@/app/loading";
@@ -29,7 +30,7 @@ export default async function PagePage({
 const Page = async ({ id }: { id: string }) => {
   await checkAuth();
 
-  const { page, pageLinks } = await getPageByIdWithPageLinks(id);
+  const { page, pageLinks, pageButtons} = await getPageByIdWithPageLinks(id);
   const { isSubscribed } = await getUserSubscriptionPlan();
 
   if (!page) notFound();
@@ -45,6 +46,14 @@ const Page = async ({ id }: { id: string }) => {
           {page.name}&apos;s Page Links
         </h3>
         <PageLinkList pages={[]} pageId={page.id} pageLinks={pageLinks} />
+      </div>
+      <div className="relative mt-8 mx-4 mb-4">
+        <div>
+          <h3 className="text-xl font-medium mb-4">
+            {page.name}&apos;s Page Buttons
+          </h3>
+          <PageButtonList pages={[]} pageId={page.id} pageButtons={pageButtons}/>
+        </div>
       </div>
     </Suspense>
   );

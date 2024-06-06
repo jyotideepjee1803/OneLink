@@ -13,9 +13,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useBackPath } from "@/components/shared/BackButton";
-
-import { Checkbox } from "@/components/ui/checkbox";
-
 import { type Page, insertPageParams } from "@/lib/db/schema/pages";
 import {
   createPageAction,
@@ -23,8 +20,7 @@ import {
   updatePageAction,
 } from "@/lib/actions/pages";
 import Image from "next/image";
-import { CircleCheckIcon, CloudUploadIcon, ImageMinusIcon, ImagePlusIcon, LockIcon, TrashIcon } from "lucide-react";
-import { getUserSubscriptionPlan } from "@/lib/stripe/subscription";
+import { CircleCheckIcon, CloudUploadIcon, LockIcon,} from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import Loading from "@/app/loading";
 
@@ -59,6 +55,7 @@ const PageForm = ({
 
   const router = useRouter();
   const backpath = useBackPath("pages");
+  const defaultSrc = "/default_user.png";
 
   const themes = [
     {gradient: "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 16%, rgba(0,212,255,1) 100%)", available : true},
@@ -169,12 +166,12 @@ const PageForm = ({
       <div className="flex items-center">
         <div className="relative w-[80px] h-[80px] shrink-0 mr-2">
           <div className="overflow-hidden h-full rounded-full border-2 border-zinc-200 dark:border-secondary/80 shadow shadow-black/50">
-            {dataUrl && <Image
+            <Image
               className="w-full h-full object-cover"
-              src={dataUrl}
+              src={dataUrl ?? defaultSrc}
               alt={'avatar'}
               width={80} height={80} />
-            }
+            
           </div>
         </div>
         

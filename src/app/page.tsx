@@ -38,7 +38,7 @@ export default function LandingPage() {
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
               <div className="mx-auto aspect-video object-fit sm:w-full lg:order-last lg:aspect-square xs:hidden">
-                <CardContainer still={false} className="">
+                {/* <CardContainer still={false} className="">
                   <CardBody>
                   <CardItem translateZ="100" className="w-full mt-4">
                       <Image
@@ -50,7 +50,7 @@ export default function LandingPage() {
                       />
                     </CardItem>
                   </CardBody>
-                </CardContainer>
+                </CardContainer> */}
               </div>
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
@@ -77,7 +77,7 @@ export default function LandingPage() {
           </div>
         </section>
         <section id="features" className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container px-4 md:px-6">
+          <div className="container md:px-6 flex flex-col">
             <div className="flex flex-col items-center justify-center space-y-4 text-center mb-10">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-neutral-100 px-3 py-1 text-sm dark:bg-neutral-800">
@@ -92,22 +92,22 @@ export default function LandingPage() {
                 </p>
               </div>
             </div>
-            <div className="mx-auto mt-4 grid items-center gap-6 lg:grid-cols-3 lg:gap-10 md:grid-cols-2 md:gap-7 sm:grid-cols-1 sm:gap-5">
-                <div className="rounded-xl border py-5 px-3">
+            <div className="flex self-center mt-4 grid gap-3 lg:grid-cols-3 lg:gap-7 md:grid-cols-2 md:gap-5 sm:grid-cols-1 sm:gap-4">
+                <div className="rounded-xl py-5 shadow-md flex flex-col justify-center items-center max-w-[19rem] max-h-[32rem]">
                   <OrbitCard/>
-                  <p className="text-neutral-500 dark:text-neutral-400 my-6">
+                  <p className="text-neutral-500 dark:text-neutral-400 my-6 text-center">
                     Share your content in limitless ways on your Onelink.
                   </p>
                 </div>
-                <div className="rounded-xl border py-5 px-3">
+                <div className="rounded-xl py-5 shadow-md flex flex-col justify-center items-center max-w-[19rem] max-h-[32rem]">
                   <ListCard/>
-                  <p className="text-neutral-500 dark:text-neutral-400 my-3">
+                  <p className="text-neutral-500 dark:text-neutral-400 my-3 text-center">
                     Customize your OneLink to match your brand. Make it feel like you.
                   </p>
                 </div>
-                <div className="rounded-xl border py-5 px-3">
+                <div className="rounded-xl py-5 shadow-md flex flex-col justify-center items-center max-w-[19rem] max-h-[32rem]">
                   <Integrations/>
-                  <p className="text-neutral-500 dark:text-neutral-400 my-3">
+                  <p className="text-neutral-500 dark:text-neutral-400 my-3 text-center">
                     Seamlessly connect your Onelink with the tools you already use.
                   </p>
                 </div>
