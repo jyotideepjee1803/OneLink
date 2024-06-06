@@ -47,9 +47,11 @@ const PageButtonForm = ({
   postSuccess?: () => void;
   title: string;
 }) => {
+  
   const { errors, hasErrors, setErrors, handleChange } =
     useValidatedForm<PageButton>(insertPageButtonParams);
   const editing = !!pageButton?.id;
+  console.log(editing);
   
   const [isDeleting, setIsDeleting] = useState(false);
   const [pending, startMutation] = useTransition();

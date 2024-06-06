@@ -27,7 +27,7 @@ export default function OptimisticPage({
   const updatePage: TAddOptimistic = (input) =>
     setOptimisticPage({ ...input.data });
 
-  const defaultSrc = "/default_user.png"
+  const defaultSrc = "/user.jpg"
   return (
     <div className="mb-4 border rounded-lg p-4">
       <Modal open={open} setOpen={setOpen} title={"Edit Page"}>

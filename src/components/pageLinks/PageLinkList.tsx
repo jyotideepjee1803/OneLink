@@ -19,11 +19,13 @@ type TOpenModal = (pageLink?: PageLink) => void;
 export default function PageLinkList({
   pageLinks,
   pages,
-  pageId 
+  pageId,
+  className, 
 }: {
   pageLinks: PageLink[];
   pages: Page[];
-  pageId?: PageId 
+  pageId?: PageId;
+  className? : string;
 }) {
   const { optimisticPageLinks, addOptimisticPageLink } = useOptimisticPageLinks(
     pageLinks,
@@ -38,7 +40,7 @@ export default function PageLinkList({
   const closeModal = () => setOpen(false);
 
   return (
-    <div>
+    <div className={className}>
       <Modal
         open={open}
         setOpen={setOpen}
@@ -54,7 +56,7 @@ export default function PageLinkList({
         />
       </Modal>
       <div className="absolute right-0 top-0 ">
-        <Button onClick={() => openModal()} variant={"outline"}>
+        <Button onClick={() => openModal()}>
           +
         </Button>
       </div>

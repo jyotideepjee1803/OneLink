@@ -17,7 +17,6 @@ import { FaGithub, FaInstagram, FaLinkedinIn, FaSnapchat, FaTwitter, FaXTwitter 
 import { LiaTelegramPlane } from "react-icons/lia";
 
 type TOpenModal = (pageButton?: PageButton) => void;
-type TAddOptimistic = (action: OptimisticAction<PageButton>) => void;
 
 export default function PageButtonList({
   pageButtons,
@@ -67,7 +66,7 @@ export default function PageButtonList({
       <Modal
         open={openCreate}
         setOpen={setOpenCreate}
-        title={"Create Page Button"}
+        title={activePageButton ? "Edit Button" : "Create Page Button"}
       >
         <PageButtonForm
           pageButton={activePageButton}
@@ -76,7 +75,7 @@ export default function PageButtonList({
           closeCreateModal={closeCreateModal}
           closeModal={closeModal}
           pages={pages}
-          title={buttonTitle}
+          title={activePageButton ? activePageButton.title : buttonTitle}
           pageId={pageId}
         />
       </Modal>
@@ -84,7 +83,7 @@ export default function PageButtonList({
       <Modal
         open={open}
         setOpen={setOpen}
-        title={activePageButton ? "Edit Page Button" : "Create Page Button"}
+        title={"Create Page Button"}
       >
         <div>
           <div className="overflow-y-scroll">
@@ -93,7 +92,7 @@ export default function PageButtonList({
                 return(
                   <div 
                   key={index} 
-                  className="flex items-center justify-between p-3 dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] h-10 text-secondary-foreground hover:bg-secondary dark:border-white/[0.2] border-black/[0.1] rounded-lg m-2"
+                  className="flex cursor-pointer items-center justify-between p-3 dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] h-10 text-secondary-foreground hover:bg-secondary dark:border-white/[0.2] border-black/[0.1] rounded-lg m-2"
                   onClick={()=>{
                     setButtonTitle(item.title);
                     openCreateModal();
@@ -114,7 +113,7 @@ export default function PageButtonList({
       </Modal>
 
       <div className="absolute right-0 top-0 ">
-        <Button onClick={() => openModal()} variant={"outline"}>
+        <Button onClick={() => openModal()} >
           +
         </Button>
       </div>
@@ -123,14 +122,36 @@ export default function PageButtonList({
       ) : (
         <ul>
           {optimisticPageButtons.map((pageButton) => {
+            const optimistic = pageButton.id === "optimistic";
+            const deleting = pageButton.id === "delete";
+            const mutating = optimistic || deleting;
+
             return (
-            <PageButton
-              pageButton={pageButton}
-              key={pageButton.id}
-              openModal={openModal}
-              pages={pages}
-              pageId={pageId}
-            />
+              <div 
+              key={pageButton.id} 
+              className={cn("p-2 inline-block rounded-lg w-full",
+                mutating ? "opacity-0 animate-pulse" : "",
+                deleting ? "text-destructive" : "",)} 
+                style={{
+                  pointerEvents: mutating||deleting ? "none" : "auto",
+                  cursor : 'pointer'
+                }}
+                aria-disabled={mutating || deleting} 
+                onClick={()=>{
+                setActivePageButton(pageButton);
+                setOpenCreate(true);
+              }}>
+                <CardContainer className="inter-var">
+                  <CardBody className="relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-lg p-3 border flex justify-center items-center">
+                    <CardItem
+                        translateZ="50" 
+                        className="text-md text-black dark:text-white w-full flex justify-center items-center"
+                      >
+                        {pageButton.title}
+                    </CardItem> 
+                  </CardBody>
+                </CardContainer>
+              </div>
             )
           })}
         </ul>
@@ -138,73 +159,6 @@ export default function PageButtonList({
     </div>
   );
 }
-
-const PageButton = ({
-  pageButton,
-  openModal,
-  pages,
-  pageId
-}: {
-  pageButton: PageButton;
-  openModal: TOpenModal;
-  pages: Page[];
-  pageId?: PageId 
-}) => {
-
-  const [editOpen, setEditOpen] = useState(false);
-  const openEditModal = (pageButton?: PageButton) => {
-    setEditOpen(true);
-  };
-  const closeEditModal = () => setEditOpen(false);
-
-  const [optimisticPageButton, setOptimisticPageButton] = useOptimistic(pageButton);
-  const updatePageButton: TAddOptimistic = (input) =>
-    setOptimisticPageButton({ ...input.data });
-
-  const optimistic = pageButton.id === "optimistic";
-  const deleting = pageButton.id === "delete";
-  const mutating = optimistic || deleting;
-
-  return (
-    
-    <div className={cn("p-2 inline-block rounded-lg w-full",
-    mutating ? "opacity-0 animate-pulse" : "",
-    deleting ? "text-destructive" : "",)} 
-    style={{
-      pointerEvents: mutating||deleting ? "none" : "auto",
-      cursor : 'pointer'
-    }}
-    aria-disabled={mutating || deleting} 
-    onClick={() => openEditModal()}
-    >
-      <Modal
-        open={editOpen}
-        setOpen={setEditOpen}
-        title={"Edit"}
-      >
-        <PageButtonForm
-          pageButton={optimisticPageButton}
-          addOptimistic={updatePageButton}
-          openModal={openEditModal}
-          closeModal={closeEditModal}
-          pages={pages}
-          title={optimisticPageButton.title}
-          pageId={pageId}
-        />
-      </Modal>
-      <CardContainer className="inter-var">
-        <CardBody className="relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-lg p-3 border flex justify-center items-center">
-          <CardItem
-              translateZ="50" 
-              className="text-md text-black dark:text-white w-full flex justify-center items-center"
-            >
-              {pageButton.title}
-          </CardItem> 
-        </CardBody>
-      </CardContainer>
-  </div>
-  );
-};
 
 const EmptyState = ({ openModal }: { openModal: TOpenModal }) => {
   return (
