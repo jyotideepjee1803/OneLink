@@ -5,9 +5,11 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
+import Logo from "@/components/Logo";
 
 import { AlignRight } from "lucide-react";
-import { defaultLinks } from "@/config/nav";
+import { additionalLinks, defaultLinks } from "@/config/nav";
+
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -15,7 +17,7 @@ export default function Navbar() {
   return (
     <div className="md:hidden border-b mb-4 pb-2 w-full">
       <nav className="flex justify-between w-full items-center">
-        <div className="font-semibold text-lg">Logo</div>
+        <Logo/>
         <Button variant="ghost" onClick={() => setOpen(!open)}>
           <AlignRight />
         </Button>
@@ -23,6 +25,21 @@ export default function Navbar() {
       {open ? (
         <div className="my-4 p-4 bg-muted">
           <ul className="space-y-2">
+            {additionalLinks[0].links.map((link)=>{
+              return(
+              <li key={link.title} onClick={() => setOpen(false)} className="">
+                <Link
+                  href={link.href}
+                  className={
+                    pathname === link.href
+                      ? "text-primary hover:text-primary font-semibold"
+                      : "text-muted-foreground hover:text-primary"
+                  }
+                >
+                  {link.title}
+                </Link>
+              </li>
+            )})}
             {defaultLinks.map((link) => (
               <li key={link.title} onClick={() => setOpen(false)} className="">
                 <Link

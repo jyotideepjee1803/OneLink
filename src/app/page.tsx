@@ -1,24 +1,35 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/PmwTvNfrVgf
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
+"use client";
+import { useState } from "react";
 import { Integrations } from "@/components/landing/Integration";
 import { ListCard } from "@/components/landing/ListsCard";
 import { OrbitCard } from "@/components/landing/OrbitCard";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
+import { Button } from "@/components/ui/button";
+import { MoonIcon, SunIcon } from "lucide-react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
+import Logo from "@/components/Logo";
 
 export default function LandingPage() {
+  const { setTheme } = useTheme();
+  const [isDarkMode, setIsDarkMode] = useState(false)
+  const toggleDarkMode = () => {
+    setTheme(isDarkMode ? "dark" : "light")
+    setIsDarkMode(!isDarkMode)
+  }
   return (
     <div className="flex flex-col min-h-screen">
       <header className="px-4 lg:px-6 h-14 flex items-center">
         <Link className="flex items-center justify-center" href="#">
-          <MountainIcon className="h-6 w-6" />
-          <span className="sr-only">Acme Inc</span>
+          <Logo/>
+          <span className="sr-only">OneLink</span>
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
+        <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
+          <Button variant="ghost" size="icon" onClick={toggleDarkMode} className="rounded-full">
+            {isDarkMode ? <SunIcon className="h-4 w-4" /> : <MoonIcon className="h-4 w-4" />}
+            <span className="sr-only">Toggle dark mode</span>
+          </Button>
           <Link
             className="text-sm font-medium hover:underline underline-offset-4"
             href="#features"
@@ -92,22 +103,22 @@ export default function LandingPage() {
                 </p>
               </div>
             </div>
-            <div className="flex self-center mt-4 grid gap-3 lg:grid-cols-3 lg:gap-7 md:grid-cols-2 md:gap-5 sm:grid-cols-1 sm:gap-4">
+            <div className="flex self-center mt-4 grid gap-3 lg:grid-cols-3 lg:gap-20 md:grid-cols-2 md:gap-10 sm:grid-cols-1 sm:gap-4">
                 <div className="rounded-xl py-5 shadow-md flex flex-col justify-center items-center max-w-[19rem] max-h-[32rem]">
                   <OrbitCard/>
-                  <p className="text-neutral-500 dark:text-neutral-400 my-6 text-center">
+                  <p className="text-neutral-500 dark:text-neutral-400 my-6 text-center px-3">
                     Share your content in limitless ways on your Onelink.
                   </p>
                 </div>
                 <div className="rounded-xl py-5 shadow-md flex flex-col justify-center items-center max-w-[19rem] max-h-[32rem]">
                   <ListCard/>
-                  <p className="text-neutral-500 dark:text-neutral-400 my-3 text-center">
+                  <p className="text-neutral-500 dark:text-neutral-400 my-3 text-center px-3">
                     Customize your OneLink to match your brand. Make it feel like you.
                   </p>
                 </div>
                 <div className="rounded-xl py-5 shadow-md flex flex-col justify-center items-center max-w-[19rem] max-h-[32rem]">
                   <Integrations/>
-                  <p className="text-neutral-500 dark:text-neutral-400 my-3 text-center">
+                  <p className="text-neutral-500 dark:text-neutral-400 my-3 text-center px-3">
                     Seamlessly connect your Onelink with the tools you already use.
                   </p>
                 </div>
@@ -147,7 +158,7 @@ export default function LandingPage() {
       </main>
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
         <p className="text-xs text-neutral-500 dark:text-neutral-400">
-          © 2024 Acme Inc. All rights reserved.
+          © 2024 OneLink Inc. All rights reserved.
         </p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <Link className="text-xs hover:underline underline-offset-4" href="#">

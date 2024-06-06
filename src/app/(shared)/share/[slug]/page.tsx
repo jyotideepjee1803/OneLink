@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { HomeIcon, MoreVerticalIcon } from "lucide-react";
+import { MoreVerticalIcon } from "lucide-react";
 
 import { getPageBySlugWithPageLinksButtons } from "@/lib/api/pages/queries";
-import { getUserImage } from "@/lib/api/pages/mutations";
 import Image from "next/image";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { type PageLink} from "@/lib/db/schema/pageLinks";
@@ -66,7 +65,7 @@ export default async function SharedPage({
             const icon = iconMapping[b.title];
             return(
               <Link key={b.id} href={b.url}>
-                <div className="mx-4">
+                <div className="mx-4 hover:animate-custom-bounce rounded-full p-2">
                   {icon}
                 </div>
               </Link>
@@ -77,7 +76,7 @@ export default async function SharedPage({
           {pageLinks.map((l:PageLink) => {
             return (
               <Link key={l.id} href={l.url}>
-                <div className={`gap-4 border border-gray-300 rounded-full p-3 flex items-center text-white hover:text-blue-900 hover:bg-gray-50`}>
+                <div className={`gap-4 border border-gray-300 rounded-full p-3 flex items-center text-white hover:text-blue-900 hover:bg-gray-50 hover:shadow-md`}>
                   <div className="flex-shrink-0 rounded-full w-[40px] h-[40px] overflow-hidden">
                     {l.icon ? (
                       <Image src={l.icon} height={40} width={40} alt="icon" className="w-full h-full object-cover rounded-full" />

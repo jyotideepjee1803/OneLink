@@ -3,23 +3,25 @@
 import { cn } from "@/lib/utils";
 import { AnimatedList } from "@/components/ui/animated-list";
 import { Skeleton } from "../ui/skeleton";
+import { FaSpotify, FaTwitter } from "react-icons/fa6";
+import { FaSnapchatGhost } from "react-icons/fa";
 
 interface Item {
-  icon: string;
+  icon: React.ReactNode;
   color: string;
 }
 
 let notifications = [
   {
-    icon: "💸",
+    icon: <FaTwitter size={25} className="fill-secondary"/>,
     color: "#00C9A7",
   },
   {
-    icon: "👤",
+    icon: <FaSnapchatGhost size={25} className="fill-secondary"/>,
     color: "#FFB800",
   },
   {
-    icon: "💬",
+    icon: <FaSpotify size={25} className="fill-secondary"/>,
     color: "#FF3D71",
   },
 ];
@@ -30,7 +32,7 @@ const Notification = ({icon, color }: Item) => {
   return (
     <figure
       className={cn(
-        "relative mx-auto min-h-fit w-full max-w-[400px] transform cursor-pointer overflow-hidden rounded-2xl p-4",
+        "relative mx-auto min-h-fit w-full max-w-[400px] transform cursor-pointer overflow-hidden rounded-full p-4",
         // animation styles
         "transition-all duration-200 ease-in-out hover:scale-[103%]",
         // light styles
@@ -42,12 +44,12 @@ const Notification = ({icon, color }: Item) => {
     >
       <div className="flex flex-row items-center gap-3">
         <div
-          className="flex h-10 w-10 items-center justify-center rounded-2xl"
+          className="flex h-5 w-10 items-center justify-center animate-pulse opacity-100"
         >
-  
+          {icon}
         </div>
         <div className="flex flex-col overflow-hidden">
-          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[150px] rounded-lg" />
         </div>
       </div>
     </figure>

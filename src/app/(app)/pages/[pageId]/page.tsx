@@ -45,8 +45,9 @@ const Page = async ({ id }: { id: string }) => {
         <h3 className="text-xl font-medium mb-4">
           {page.name}&apos;s Page Links
         </h3>
-        <PageLinkList pages={[]} pageId={page.id} pageLinks={pageLinks} />
+        <PageLinkList pages={[]} pageId={page.id} pageLinks={pageLinks}/>
       </div>
+      <hr className=""/>
       <div className="relative mt-8 mx-4 mb-4">
         <div>
           <h3 className="text-xl font-medium mb-4">

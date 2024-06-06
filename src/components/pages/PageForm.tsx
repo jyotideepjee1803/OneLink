@@ -55,7 +55,7 @@ const PageForm = ({
 
   const router = useRouter();
   const backpath = useBackPath("pages");
-  const defaultSrc = "/default_user.png";
+  const defaultSrc = "/user.jpg";
 
   const themes = [
     {gradient: "linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 16%, rgba(0,212,255,1) 100%)", available : true},
