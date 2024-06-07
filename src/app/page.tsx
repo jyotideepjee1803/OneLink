@@ -51,7 +51,7 @@ export default function LandingPage() {
                 Link All of You, In One link. 
               </h1>
               <p className="max-w-[640px] text-neutral-500 md:text-xl dark:text-neutral-400 text-center">
-                One link to help you share your Instagram, TikTok, Twitter, YouTube 
+                One link to help you share your Instagram, Snapchat, Twitter, YouTube 
                 and other social media profiles. One link to connect
                 with millions of people.
               </p>
