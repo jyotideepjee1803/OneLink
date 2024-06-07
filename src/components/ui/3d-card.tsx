@@ -14,6 +14,88 @@ const MouseEnterContext = createContext<
   [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
 >(undefined);
 
+export const CustomCardContainer = ({
+  children,
+  className,
+  containerClassName,
+  still,
+}: {
+  children?: React.ReactNode;
+  className?: string;
+  containerClassName?: string;
+  still?: boolean;
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isMouseEntered, setIsMouseEntered] = useState(false);
+  const animationFrameId = useRef<number | null>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    const { left, top, width, height } =
+      containerRef.current.getBoundingClientRect();
+    const x = (e.clientX - left - width / 2) / 25;
+    const y = (e.clientY - top - height / 2) / 25;
+    containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${y}deg) scale(1.05)`;
+  };
+
+  const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    setIsMouseEntered(true);
+    if (!containerRef.current) return;
+    if (animationFrameId.current !== null) {
+      cancelAnimationFrame(animationFrameId.current);
+    }
+  };
+
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+    setIsMouseEntered(false);
+    if (still === false) return;
+    containerRef.current.style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
+  };
+
+  const continuousRotation = () => {
+    if (!containerRef.current) return;
+    const angle = Date.now() / 100000000; // Slow continuous rotation
+    containerRef.current.style.transform = `rotateY(${angle * 4}deg) rotateX(${angle * 2}deg)`;
+    animationFrameId.current = requestAnimationFrame(continuousRotation);
+  };
+
+  useEffect(() => {
+    if (!isMouseEntered) {
+      animationFrameId.current = requestAnimationFrame(continuousRotation);
+    }
+    return () => {
+      if (animationFrameId.current !== null) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+    };
+  }, [isMouseEntered]);
+
+  return (
+    <MouseEnterContext.Provider value={[isMouseEntered, setIsMouseEntered]}>
+      <div
+        className={cn("flex items-center justify-center", containerClassName)}
+        style={{
+          perspective: "1000px",
+        }}
+      >
+        <div
+          ref={containerRef}
+          onMouseEnter={handleMouseEnter}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className={cn("transition-all duration-200 ease-linear", className)}
+          style={{
+            transformStyle: "preserve-3d",
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    </MouseEnterContext.Provider>
+  );
+};
+
 export const CardContainer = ({
   children,
   className,

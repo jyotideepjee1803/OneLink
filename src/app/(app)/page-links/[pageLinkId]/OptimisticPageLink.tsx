@@ -3,13 +3,9 @@
 import { useOptimistic, useState } from "react";
 import { TAddOptimistic } from "@/app/(app)/page-links/useOptimisticPageLinks";
 import { type PageLink } from "@/lib/db/schema/pageLinks";
-import { cn } from "@/lib/utils";
-
-import { Button } from "@/components/ui/button";
-import Modal from "@/components/shared/Modal";
-import PageLinkForm from "@/components/pageLinks/PageLinkForm";
 import { type Page, type PageId } from "@/lib/db/schema/pages";
-import Image from "next/image";
+
+import PageLinkForm from "@/components/pageLinks/PageLinkForm";
 
 export default function OptimisticPageLink({ 
   pageLink,

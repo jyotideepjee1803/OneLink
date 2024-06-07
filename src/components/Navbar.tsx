@@ -1,15 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-import { Button } from "@/components/ui/button";
-import Logo from "@/components/Logo";
 
 import { AlignRight } from "lucide-react";
 import { additionalLinks, defaultLinks } from "@/config/nav";
 
+import SignOutBtn from "@/components/auth/SignOutBtn";
+import { Button } from "@/components/ui/button";
+import Logo from "@/components/Logo";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -23,7 +23,7 @@ export default function Navbar() {
         </Button>
       </nav>
       {open ? (
-        <div className="my-4 p-4 bg-muted">
+        <div className="relative my-4 p-4 bg-muted">
           <ul className="space-y-2">
             {additionalLinks[0].links.map((link)=>{
               return(
@@ -55,6 +55,9 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+          <div className="bottom-0 right-0 mt-2">
+            <SignOutBtn/>
+          </div>
         </div>
       ) : null}
     </div>

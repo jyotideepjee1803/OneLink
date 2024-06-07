@@ -1,5 +1,4 @@
-import { AccountCard, AccountCardFooter, AccountCardBody } from "./AccountCard";
-import { Button } from "@/components/ui/button";
+import { AccountCard, AccountCardBody } from "./AccountCard";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useTransition } from "react";
@@ -35,17 +34,13 @@ export default function UpdateEmailCard({ email }: { email: string }) {
     <AccountCard
       params={{
         header: "Your Email",
-        description:
-          "Please enter the email address you want to use with your account.",
+        description: "",
       }}
     >
       <form onSubmit={handleSubmit}>
         <AccountCardBody>
           <Input defaultValue={email ?? ""} name="email" disabled={true} />
         </AccountCardBody>
-        <AccountCardFooter description="We will email vou to verify the change.">
-          <Button disabled={true}>Update Email</Button>
-        </AccountCardFooter>
       </form>
     </AccountCard>
   );

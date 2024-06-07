@@ -1,7 +1,8 @@
+import { useOptimistic } from "react";
+
 import { type Page } from "@/lib/db/schema/pages";
 import { type PageLink, type CompletePageLink } from "@/lib/db/schema/pageLinks";
 import { OptimisticAction } from "@/lib/utils";
-import { useOptimistic } from "react";
 
 export type TAddOptimistic = (action: OptimisticAction<PageLink>) => void;
 

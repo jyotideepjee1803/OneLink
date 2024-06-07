@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { MoreVerticalIcon } from "lucide-react";
 
 import { getPageBySlugWithPageLinksButtons } from "@/lib/api/pages/queries";
-import Image from "next/image";
-import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { type PageLink} from "@/lib/db/schema/pageLinks";
 import { PageButton } from "@/lib/db/schema/pageButtons";
+
 import { iconMapping } from "@/components/socials";
 
 export default async function SharedPage({

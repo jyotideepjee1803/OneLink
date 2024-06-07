@@ -3,16 +3,18 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { PlusIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { type PageLink, CompletePageLink } from "@/lib/db/schema/pageLinks";
-import Modal from "@/components/shared/Modal";
 import { type Page, type PageId } from "@/lib/db/schema/pages";
 import { useOptimisticPageLinks } from "@/app/(app)/page-links/useOptimisticPageLinks";
+
+import Modal from "@/components/shared/Modal";
 import { Button } from "@/components/ui/button";
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
+
 import PageLinkForm from "./PageLinkForm";
-import { PlusIcon } from "lucide-react";
-import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
 
 type TOpenModal = (pageLink?: PageLink) => void;
 
@@ -103,12 +105,12 @@ const PageLink = ({
     aria-disabled={mutating || deleting} 
     href={ basePath + "/" + pageLink.id }
     >
-    <CardContainer className="inter-var">
-      <CardBody className="relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-3 border flex justify-center items-center">
+    <CardContainer className="inter-var min-w-[300px]">
+      <CardBody className="relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-lg p-3 border flex justify-center items-center">
         <CardItem
-            translateZ="50" 
-            className="text-md text-black dark:text-white w-full flex justify-center items-center"
-          >
+          translateZ="50" 
+          className="text-xl text-black dark:text-white w-full flex justify-center items-center min-w-80"
+        >
             {pageLink.title}
         </CardItem> 
       </CardBody>

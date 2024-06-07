@@ -144,9 +144,9 @@ export default function PageButtonList({
                 <CardContainer className="inter-var">
                   <CardBody className="relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-lg p-3 border flex justify-center items-center">
                     <CardItem
-                        translateZ="50" 
-                        className="text-md text-black dark:text-white w-full flex justify-center items-center"
-                      >
+                      translateZ="50" 
+                      className="text-xl text-black dark:text-white w-full flex justify-center items-center min-w-80"
+                    >
                         {pageButton.title}
                     </CardItem> 
                   </CardBody>

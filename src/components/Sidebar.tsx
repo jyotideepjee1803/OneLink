@@ -1,8 +1,6 @@
-import { IconProps } from "@radix-ui/react-icons/dist/types";
 import Logo from "@/components/Logo";
-import SidebarItems from "./SidebarItems";
-import SidebarUser from "./SidebarUser";
-
+import SidebarItems from "@/components/SidebarItems";
+import SidebarUser from "@/components/SidebarUser";
 
 const Sidebar = () => {
  
