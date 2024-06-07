@@ -1,28 +1,29 @@
 "use client";
 
 import { useState } from "react";
+import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { type Page, CompletePage } from "@/lib/db/schema/pages";
 import Modal from "@/components/shared/Modal";
+import { Button } from "@/components/ui/button";
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
+import { PlaceholdersAndVanishInput } from "@/components/ui/page-search";
 
 import { useOptimisticPages } from "@/app/(app)/pages/useOptimisticPages";
-import { Button } from "@/components/ui/button";
+
 import PageForm from "./PageForm";
-import { PlusIcon } from "lucide-react";
-import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
-import { PlaceholdersAndVanishInput } from "../ui/page-search";
 
 type TOpenModal = (page?: Page) => void;
 
 export default function PageList({
   pages,
-   
+  subscribed,
 }: {
   pages: Page[];
-   
+  subscribed : boolean
 }) {
   const { optimisticPages, addOptimisticPage } = useOptimisticPages(
     pages,
@@ -63,7 +64,7 @@ export default function PageList({
           addOptimistic={addOptimisticPage}
           openModal={openModal}
           closeModal={closeModal}
-          
+          subscribed={subscribed}
         />
       </Modal>
       <div className="absolute right-0 top-0 ">
@@ -131,9 +132,6 @@ const Page = ({
         }}
         aria-disabled={mutating || deleting}
       >
-        {/* <div className="w-full">
-          <div>{page.name}</div>
-        </div> */}
         <CardContainer className="inter-var">
           <CardBody className="relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-full p-3 border flex justify-center items-center">
             <CardItem

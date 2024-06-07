@@ -36,6 +36,7 @@ const Page = async ({ id }: { id: string }) => {
   if (!page) notFound();
   return (
     <Suspense fallback={<Loading />}>
+      <div className="">
       <div className="relative">
         <BackButton currentResource="pages" />
         <OptimisticPage page={page} subscribed = {Boolean(isSubscribed)}/>
@@ -43,18 +44,17 @@ const Page = async ({ id }: { id: string }) => {
       <TogglePublic page={page} isSubscribed={Boolean(isSubscribed)} />
       <div className="relative mt-8 mx-4 mb-4">
         <h3 className="text-xl font-medium mb-4">
-          {page.name}&apos;s Page Links
+          Page Links
         </h3>
         <PageLinkList pages={[]} pageId={page.id} pageLinks={pageLinks}/>
       </div>
       <hr className=""/>
       <div className="relative mt-8 mx-4 mb-4">
-        <div>
           <h3 className="text-xl font-medium mb-4">
-            {page.name}&apos;s Page Buttons
+            Page Buttons
           </h3>
           <PageButtonList pages={[]} pageId={page.id} pageButtons={pageButtons}/>
-        </div>
+      </div>
       </div>
     </Suspense>
   );

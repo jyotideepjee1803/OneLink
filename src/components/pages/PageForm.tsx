@@ -3,9 +3,17 @@ import { z } from "zod";
 import { useRef, useState, useTransition } from "react";
 import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { CircleCheckIcon, CloudUploadIcon, LockIcon,} from "lucide-react";
 import { toast } from "sonner";
-import { useValidatedForm } from "@/lib/hooks/useValidatedForm";
 
+import { useValidatedForm } from "@/lib/hooks/useValidatedForm";
+import { type Page, insertPageParams } from "@/lib/db/schema/pages";
+import {
+  createPageAction,
+  deletePageAction,
+  updatePageAction,
+} from "@/lib/actions/pages";
 import { type Action, cn } from "@/lib/utils";
 import { type TAddOptimistic } from "@/app/(app)/pages/useOptimisticPages";
 
@@ -13,15 +21,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useBackPath } from "@/components/shared/BackButton";
-import { type Page, insertPageParams } from "@/lib/db/schema/pages";
-import {
-  createPageAction,
-  deletePageAction,
-  updatePageAction,
-} from "@/lib/actions/pages";
-import Image from "next/image";
-import { CircleCheckIcon, CloudUploadIcon, LockIcon,} from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
 import Loading from "@/app/loading";
 
 const PageForm = ({

@@ -2,9 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
-import { signOut } from "next-auth/react";
+import { useClerk } from "@clerk/nextjs";
 
 export default function SignOutBtn() {
+  
+  const { signOut } = useClerk();
+
   const router = useRouter();
   const handleSignOut = async () => {
     const response = await fetch("/api/sign-out", {
@@ -18,8 +21,9 @@ export default function SignOutBtn() {
       return router.refresh();
     }
   };
+  
   return (
-    <Button variant={"destructive"} onClick={() => signOut({ callbackUrl: "/" })}>
+    <Button variant={"destructive"} onClick={() => signOut({ redirectUrl: '/' })}>
           Sign out
     </Button>
   );

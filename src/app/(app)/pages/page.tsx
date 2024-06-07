@@ -5,6 +5,7 @@ import PageList from "@/components/pages/PageList";
 import { getPages } from "@/lib/api/pages/queries";
 
 import { checkAuth } from "@/lib/auth/utils";
+import { getUserSubscriptionPlan } from "@/lib/stripe/subscription";
 
 export const revalidate = 0;
 
@@ -25,10 +26,10 @@ const Pages = async () => {
   await checkAuth();
 
   const { pages } = await getPages();
-  
+  const {isSubscribed} = await getUserSubscriptionPlan();
   return (
     <Suspense fallback={<Loading />}>
-      <PageList pages={pages}  />
+      <PageList pages={pages} subscribed={Boolean(isSubscribed) ?? false}/>
     </Suspense>
   );
 };

@@ -3,17 +3,26 @@ import { z } from "zod";
 import { useRef, useState, useTransition } from "react";
 import { useFormStatus } from "react-dom";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { CloudUploadIcon,} from "lucide-react";
+import { BsFillImageFill } from "react-icons/bs";
 import { toast } from "sonner";
-import { useValidatedForm } from "@/lib/hooks/useValidatedForm";
 
+import { useValidatedForm } from "@/lib/hooks/useValidatedForm";
 import { type Action, cn } from "@/lib/utils";
+import { type PageLink, insertPageLinkParams } from "@/lib/db/schema/pageLinks";
+import {
+  createPageLinkAction,
+  deletePageLinkAction,
+  updatePageLinkAction,
+} from "@/lib/actions/pageLinks";
+import { type Page, type PageId } from "@/lib/db/schema/pages";
 import { type TAddOptimistic } from "@/app/(app)/page-links/useOptimisticPageLinks";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useBackPath } from "@/components/shared/BackButton";
-
 import {
   Select,
   SelectContent,
@@ -22,15 +31,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { type PageLink, insertPageLinkParams } from "@/lib/db/schema/pageLinks";
-import {
-  createPageLinkAction,
-  deletePageLinkAction,
-  updatePageLinkAction,
-} from "@/lib/actions/pageLinks";
-import { type Page, type PageId } from "@/lib/db/schema/pages";
-import Image from "next/image";
-import { CloudUploadIcon,} from "lucide-react";
 import Loading from "@/app/loading";
 
 const PageLinkForm = ({
@@ -161,12 +161,13 @@ const PageLinkForm = ({
 
       <div className="flex items-center w-full">
         <div className="relative w-[80px] h-[80px] shrink-0 mr-2">
-          <div className="overflow-hidden h-full rounded-full border-2 border-zinc-200 dark:border-secondary/80 shadow shadow-black/50">
-            {dataUrl && <Image
+          <div className="flex justify-center items-center overflow-hidden h-full rounded-full border-2 border-zinc-200 dark:border-secondary/80 shadow shadow-black/50">
+            {dataUrl ? <Image
               className="w-full h-full object-cover"
               src={dataUrl}
               alt={'avatar'}
-              width={80} height={80} />
+              width={80} height={80} /> : 
+              <BsFillImageFill size={32}/>
             }
           </div>
         </div>

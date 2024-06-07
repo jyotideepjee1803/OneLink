@@ -1,7 +1,8 @@
+import { useOptimistic } from "react";
+
 import { type Page } from "@/lib/db/schema/pages";
 import { type PageButton } from "@/lib/db/schema/pageButtons";
 import { OptimisticAction } from "@/lib/utils";
-import { useOptimistic } from "react";
 
 export type TAddOptimistic = (action: OptimisticAction<PageButton>) => void;
 
