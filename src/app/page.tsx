@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { MoonIcon, SunIcon } from "lucide-react";
 
 import { useTheme } from "next-themes";
 import Image from "next/image";
@@ -11,7 +10,7 @@ import { ContainerScroll } from "@/components/ui/container-scroll";
 import { Integrations } from "@/components/landing/Integration";
 import { ListCard } from "@/components/landing/ListsCard";
 import { OrbitCard } from "@/components/landing/OrbitCard";
-import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function LandingPage() {
   const { setTheme } = useTheme();
@@ -28,10 +27,7 @@ export default function LandingPage() {
           <span className="sr-only">OneLink</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
-          <Button variant="ghost" size="icon" onClick={toggleDarkMode} className="rounded-full">
-            {isDarkMode ? <SunIcon className="h-4 w-4" /> : <MoonIcon className="h-4 w-4" />}
-            <span className="sr-only">Toggle dark mode</span>
-          </Button>
+          <ThemeToggle/>
           <Link
             className="text-sm font-medium hover:underline underline-offset-4"
             href="#features"
@@ -71,20 +67,22 @@ export default function LandingPage() {
           </div>
   
           <div className="flex flex-col overflow-hidden">
-            <ContainerScroll
-              titleComponent = {
-                <></>
-              }
-            >
-               <Image
-                src={`/dashboard.png`}
-                alt="hero"
-                height={720}
-                width={1400}
-                className="mx-auto rounded-2xl object-fit w-full object-left-top rounded-xl"
-                draggable={false}
-              />
-            </ContainerScroll>
+            {/* For larger screens */}
+            <div className="hidden md:block">
+              <ContainerScroll
+                titleComponent={<></>}
+              >
+                <Image
+                  src="/dashboard.png"
+                  alt="hero"
+                  height={720}
+                  width={1400}
+                  className="mx-auto rounded-2xl object-fit w-full object-left-top rounded-xl"
+                  draggable={false}
+                />
+              </ContainerScroll>
+            </div>
+
           </div>
         </section>
         <section id="features" className="w-full py-12 md:py-24 lg:py-32">
