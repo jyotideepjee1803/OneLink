@@ -14,7 +14,7 @@ import {
   deletePageAction,
   updatePageAction,
 } from "@/lib/actions/pages";
-import { type Action, cn } from "@/lib/utils";
+import { type Action, cn, absoluteUrl } from "@/lib/utils";
 import { type TAddOptimistic } from "@/app/(app)/pages/useOptimisticPages";
 
 import { Input } from "@/components/ui/input";
@@ -282,9 +282,7 @@ const PageForm = ({
           </div>
           ))}
           </div>
-        
-      </div>
-      <div>
+        </div>
         <Label
           className={cn(
             "mb-1 inline-block",
@@ -293,18 +291,22 @@ const PageForm = ({
         >
           Slug
         </Label>
-        <Input
-          type="text"
-          name="slug"
-          className={cn(errors?.slug ? "ring ring-destructive" : "")}
-          defaultValue={page?.slug ?? ""}
-        />
+
+        <div tabIndex={0} className="max-w-sm flex flex-row items-center pl-4 text-gray-400 border border-input rounded-md focus:ring-2 focus:ring-ring focus-visible:ring-offset-2">
+          <p>{absoluteUrl("/share/")}</p>
+          <input
+            type="text"
+            name="slug"
+            defaultValue={page?.slug ?? ""}
+            className="h-10 bg-background focus:outline-none truncate"
+          />
+        </div>
+
         {errors?.slug ? (
           <p className="text-xs text-destructive mt-2">{errors.slug[0]}</p>
         ) : (
           <div className="h-6" />
         )}
-      </div>
       {/* Schema fields end */}
 
       {/* Save Button */}
