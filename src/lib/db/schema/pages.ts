@@ -9,7 +9,9 @@ const baseSchema = pageSchema.omit(timestamps)
 
 export const insertPageSchema = baseSchema.omit({ id: true});
 export const insertPageParams = baseSchema.extend({
-  public: z.coerce.boolean()
+  public: z.coerce.boolean(),
+  name: z.coerce.string().min(1),
+  slug : z.coerce.string().min(1)
 }).omit({ 
   id: true,
   userId: true
@@ -17,7 +19,9 @@ export const insertPageParams = baseSchema.extend({
 
 export const updatePageSchema = baseSchema;
 export const updatePageParams = updatePageSchema.extend({
-  public: z.coerce.boolean()
+  public: z.coerce.boolean(),
+  name: z.coerce.string().min(1),
+  slug : z.coerce.string().min(1)
 }).omit({ 
   userId: true
 });

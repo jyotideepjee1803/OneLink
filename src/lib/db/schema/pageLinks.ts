@@ -9,14 +9,18 @@ const baseSchema = pageLinkSchema.omit(timestamps)
 
 export const insertPageLinkSchema = baseSchema.omit({ id: true });
 export const insertPageLinkParams = baseSchema.extend({
-  pageId: z.coerce.string().min(1)
+  pageId: z.coerce.string().min(1),
+  title: z.coerce.string().min(1),
+  url : z.coerce.string().min(1)
 }).omit({ 
   id: true
 });
 
 export const updatePageLinkSchema = baseSchema;
 export const updatePageLinkParams = updatePageLinkSchema.extend({
-  pageId: z.coerce.string().min(1)
+  pageId: z.coerce.string().min(1),
+  title: z.coerce.string().min(1),
+  url : z.coerce.string().min(1)
 })
 export const pageLinkIdSchema = baseSchema.pick({ id: true });
 
