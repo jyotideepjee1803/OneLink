@@ -9,14 +9,16 @@ const baseSchema = pageButtonSchema.omit(timestamps)
 
 export const insertPageButtonSchema = baseSchema.omit({ id: true });
 export const insertPageButtonParams = baseSchema.extend({
-  pageId: z.coerce.string().min(1)
+  pageId: z.coerce.string().min(1),
+  url : z.coerce.string().min(1)
 }).omit({ 
   id: true
 });
 
 export const updatePageButtonSchema = baseSchema;
 export const updatePageButtonParams = updatePageButtonSchema.extend({
-  pageId: z.coerce.string().min(1)
+  pageId: z.coerce.string().min(1),
+  url : z.coerce.string().min(1)
 })
 export const pageButtonIdSchema = baseSchema.pick({ id: true });
 

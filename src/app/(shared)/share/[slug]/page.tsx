@@ -19,32 +19,16 @@ export default async function SharedPage({
   const { page, pageLinks, pageButtons } = await getPageBySlugWithPageLinksButtons(params.slug);
  
   if (!page) notFound();
-  if (!page.public) return <main>This page is not public</main>;
-
-  const getColorFromTheme = (cssString : string) => {
-    // Regular expression to match any color in CSS format
-    const regex = /rgba?\([^)]*\)|#[0-9a-fA-F]{3,6}\b/g;
-    const colors = cssString.match(regex);
-  
-    if (colors && colors.length > 0) {
-      // Extract the first color found
-      return colors[0];
-    } else {
-      return null;
-    }
-  }
-
-  const primaryColor = getColorFromTheme(page.bgColor);
-  const styles = {
-    text: {
-      color: 'white', // Default text color
-      transition: 'color 0.3s ease', // Optional: Add a transition effect
-      // Apply blue color when hovered using :hover pseudo-class
-      ':hover': {
-        color: primaryColor,
-      },
-    },
-  };
+  if (!page.public) 
+    return (
+      <main>
+         <div className="flex flex-col justify-center items-center space-y-4 mt-5 pt-10">
+            <p className="max-w-[640px] text-neutral-500 md:text-xl dark:text-neutral-400 text-center">
+              {"This page is not public. If you're the creator make sure\n you click the Make Public Button before sharing"}
+            </p>
+        </div>
+      </main>
+    );
 
   return (
     <main>
