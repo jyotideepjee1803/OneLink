@@ -293,7 +293,7 @@ const PageForm = ({
         </Label>
 
         <div tabIndex={0} className="max-w-sm flex flex-row items-center pl-4 text-gray-400 border border-input rounded-md focus:ring-2 focus:ring-ring focus-visible:ring-offset-2">
-          <p>{absoluteUrl("/share/")}</p>
+          <p>{("onelink/share/")}</p>
           <input
             type="text"
             name="slug"
