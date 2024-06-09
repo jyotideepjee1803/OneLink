@@ -10,8 +10,8 @@ const baseSchema = pageLinkSchema.omit(timestamps)
 export const insertPageLinkSchema = baseSchema.omit({ id: true });
 export const insertPageLinkParams = baseSchema.extend({
   pageId: z.coerce.string().min(1),
-  title: z.coerce.string().min(1),
-  url : z.coerce.string().min(1)
+  title: z.coerce.string().min(1,{message: "Title is required"}),
+  url : z.coerce.string().min(1,{message: "URL is required"}).url({message : "Invalid url"})
 }).omit({ 
   id: true
 });
@@ -19,8 +19,8 @@ export const insertPageLinkParams = baseSchema.extend({
 export const updatePageLinkSchema = baseSchema;
 export const updatePageLinkParams = updatePageLinkSchema.extend({
   pageId: z.coerce.string().min(1),
-  title: z.coerce.string().min(1),
-  url : z.coerce.string().min(1)
+  title: z.coerce.string().min(1,{message: "Title is required"}),
+  url : z.coerce.string().min(1,{message: "URL is required"}).url({message : "Invalid url"})
 })
 export const pageLinkIdSchema = baseSchema.pick({ id: true });
 
