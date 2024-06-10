@@ -11,10 +11,15 @@ import { type Page, type PageId } from "@/lib/db/schema/pages";
 import { useOptimisticPageButtons } from "./useOptimisticPageButton";
 import { Button } from "@/components/ui/button";
 import PageButtonForm from "./ButtonForm";
-import { ChevronRight, PlusIcon } from "lucide-react";
+import { ChevronRight, PlusIcon, Search, X } from "lucide-react";
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
-import { FaGithub, FaInstagram, FaLinkedinIn, FaSnapchat, FaTwitter, FaXTwitter } from "react-icons/fa6";
+import { FaInstagram, FaSnapchat, FaXTwitter } from "react-icons/fa6";
+import { FiGithub } from "react-icons/fi";
+import { SlSocialLinkedin } from "react-icons/sl";
 import { LiaTelegramPlane } from "react-icons/lia";
+import { AiOutlineDiscord } from "react-icons/ai";
+import { CiFacebook } from "react-icons/ci";
+import { Input } from "../ui/input";
 
 type TOpenModal = (pageButton?: PageButton) => void;
 
@@ -41,7 +46,8 @@ export default function PageButtonList({
   const closeModal = () => setOpen(false);
 
   const [openCreate, setOpenCreate] = useState(false);
-  const [buttonTitle, setButtonTitle] = useState("");
+  const [buttonTitle, setButtonTitle] = useState({title:"", example:""});
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const openCreateModal = (pageButton?: PageButton) => {
     setOpenCreate(true);
     pageButton ? setActivePageButton(pageButton) : setActivePageButton(null);
@@ -49,16 +55,21 @@ export default function PageButtonList({
   const closeCreateModal = () => setOpenCreate(false);
 
   const SocialButtons = [
-    {title : 'LinkedIn', icon : <FaLinkedinIn/>},
-    {title : 'Github', icon : <FaGithub/>},
-    {title : 'Instagram', icon : <FaInstagram/>},
-    {title : 'Telegram', icon : <LiaTelegramPlane/>},
-    {title : 'Snapchat', icon : <FaSnapchat/>},
-    {title : 'Twitter', icon : <FaXTwitter/>},
+    {title : 'LinkedIn', icon : <SlSocialLinkedin/>, example : "https://linkedin.com/in/username"},
+    {title : 'Github', icon : <FiGithub/>, example : " https://www.github.com/username"},
+    {title : 'Instagram', icon : <FaInstagram/>, example : "https://www.instagram.com/handle"},
+    {title : 'Facebook', icon : <CiFacebook/>, example : "https://facebook.com/facebookpageurl"},
+    {title : 'Telegram', icon : <LiaTelegramPlane/>, example : "https://t.me/"},
+    {title : 'Snapchat', icon : <FaSnapchat/>, example : "https://www.snapchat.com/add/yourusername"},
+    {title : 'Twitter', icon : <FaXTwitter/>, example : "https://x.com/handle"},
+    {title : 'Discord', icon : <AiOutlineDiscord/>, example: "https://discord.com/invite/yourchannel"}
   ]
 
+  //filtering not selected buttons, among them filtering search query
   const filteredSocialButtons = SocialButtons.filter(socialButton =>
     !pageButtons.map(pageButton => pageButton.title).includes(socialButton.title)
+  ).filter((pageButton) =>
+    pageButton.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -75,7 +86,8 @@ export default function PageButtonList({
           closeCreateModal={closeCreateModal}
           closeModal={closeModal}
           pages={pages}
-          title={activePageButton ? activePageButton.title : buttonTitle}
+          title={activePageButton ? activePageButton.title : buttonTitle.title}
+          byline={buttonTitle.example}
           pageId={pageId}
         />
       </Modal>
@@ -85,16 +97,30 @@ export default function PageButtonList({
         setOpen={setOpen}
         title={"Create Page Button"}
       >
-        <div>
-          <div className="overflow-y-scroll">
+        <div className="h-[300px] overflow-y-hidden">
+          <div className="flex cursor-pointer items-center justify-between p-3">
+            <Input
+            startIcon={Search}
+            type="search"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"/>
+          </div>
+          <div className="overflow-y-scroll h-[250px]">
             {
-              filteredSocialButtons.map((item, index)=>{
+              filteredSocialButtons.length === 0 ?
+              <div className="flex justify-center">
+                <p> No icons found. Try something else? </p> 
+              </div>:
+              (<>
+              {filteredSocialButtons.map((item, index)=>{
                 return(
                   <div 
                   key={index} 
-                  className="flex cursor-pointer items-center justify-between p-3 dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] h-10 text-secondary-foreground hover:bg-secondary dark:border-white/[0.2] border-black/[0.1] rounded-lg m-2"
+                  className="flex cursor-pointer items-center justify-between p-3 dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] h-15 text-secondary-foreground hover:bg-secondary dark:border-white/[0.2] border-black/[0.1] rounded-lg m-2"
                   onClick={()=>{
-                    setButtonTitle(item.title);
+                    setButtonTitle({title : item.title, example : item.example});
                     openCreateModal();
                   }}
                   >
@@ -105,9 +131,10 @@ export default function PageButtonList({
                       <div><ChevronRight className="h-5 w-5"/></div>
                   </div>
                 )
-              })
-            }
-
+              })}
+              </>
+            )
+          }
           </div>
         </div>
       </Modal>

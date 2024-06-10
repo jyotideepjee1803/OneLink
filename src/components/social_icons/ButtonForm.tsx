@@ -35,6 +35,7 @@ const PageButtonForm = ({
   closeCreateModal,
   addOptimistic,
   title,
+  byline,
   postSuccess,
 }: {
   pageButton?: PageButton | null;
@@ -46,6 +47,7 @@ const PageButtonForm = ({
   addOptimistic?: TAddOptimistic;
   postSuccess?: () => void;
   title: string;
+  byline?:string;
 }) => {
   
   const { errors, hasErrors, setErrors, handleChange } =
@@ -144,7 +146,9 @@ const PageButtonForm = ({
         {errors?.url ? (
           <p className="text-xs text-destructive mt-2">{errors.url[0]}</p>
         ) : (
-          <div className="h-6" />
+          <>
+          {(byline && byline !== undefined) && <p className="text-xs mt-2">{`Example : ${byline}`}</p>}
+          </>
         )}
       </div>
       
@@ -174,7 +178,7 @@ const PageButtonForm = ({
         {errors?.pageId ? (
           <p className="text-xs text-destructive mt-2">{errors.pageId[0]}</p>
         ) : (
-          <div className="h-6" />
+          <div className="h-6"/>
         )}
       </div> }
       {/* Schema fields end */}
