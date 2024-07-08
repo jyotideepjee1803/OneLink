@@ -63,14 +63,16 @@ export function ManageUserSubscriptionButton({
 
   return (
     <form onSubmit={handleSubmit} className="w-full">
+      {!isCurrentPlan && 
       <Button
         disabled={isPending}
         className="w-full"
         variant={isCurrentPlan ? "default" : "outline"}
       >
         {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-        {isCurrentPlan ? "Manage Subscription" : "Subscribe"}
+        {"Subscribe"}
       </Button>
+      }
     </form>
   );
 }
