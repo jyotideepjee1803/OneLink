@@ -31,8 +31,8 @@ export default async function SharedPage({
     );
 
   return (
-    <main>
-      <div className={`flex h-screen flex-col items-center justify-center px-4 py-8 text-center`} style={{background:page.bgColor}}>
+    
+      <div className={`flex min-h-screen flex-col items-center justify-center px-4 py-8 text-center`} style={{background:page.bgColor}}>
         <header className="mb-10">
           <div className="flex justify-center">
             <div className="rounded-full bg-gray-300 flex content-center justify-center">
@@ -71,13 +71,15 @@ export default async function SharedPage({
 
                   <div className="flex-grow text-center">{l.title}</div>
 
-                  <div className="flex-shrink-0"><MoreVerticalIcon className="h-5 w-5"/></div>
+                  <div className="flex-shrink-0"><MoreVerticalIcon className="h-5 w-5"/>
+                    
+                  </div>
                 </div>
               </Link>
             )
           })}
         </nav>
       </div>
-    </main>
+
   );
 }
